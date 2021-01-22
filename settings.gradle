@@ -1,5 +1,9 @@
+
 include ':features'
 include ':data'
 include ':domain'
 include ':app'
+
+include ':features:feature-navigation'
+include ':features:feature-onboarding'
 rootProject.name = "TopRanked"
