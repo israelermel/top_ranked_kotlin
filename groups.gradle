@@ -1,0 +1,86 @@
+def Group(Closure closure) {
+    closure.delegate = dependencies
+    return closure
+}
+
+
+ext {
+    support = Group {
+        implementation globalDependencies.appCompat
+        implementation globalDependencies.constraintLayout
+        implementation globalDependencies.material
+
+    }
+
+    stdKotlin = Group {
+        implementation globalDependencies.kotlinStdLib
+    }
+
+    kotlinKtx = Group {
+        implementation globalDependencies.coreKtx
+    }
+
+    testing = Group {
+        testImplementation globalTestDependencies.jUnit
+        testImplementation globalTestDependencies.testExt
+        testImplementation globalTestDependencies.mockitoCore
+//        androidTestImplementation globalTestDependencies.mockitoAndroid
+        testImplementation globalTestDependencies.mockitoInline
+        testImplementation globalTestDependencies.robolectric
+        testImplementation globalTestDependencies.koinTest
+//        androidTestImplementation globalTestDependencies.livedata_testing
+        testImplementation globalTestDependencies.mockitoInlineItsWork
+        androidTestImplementation globalTestDependencies.espresso
+        androidTestImplementation("org.koin:koin-test:2.0.1") {
+            exclude group: 'org.mockito'
+        }
+
+        androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+
+        androidTestImplementation('com.schibsted.spain:barista:3.5.0') {
+            exclude group: 'org.jetbrains.kotlin'
+        }
+
+        androidTestImplementation "org.koin:koin-test:2.0.1"
+    }
+
+    di = Group {
+        implementation globalDependencies.koinAndroid
+        implementation globalDependencies.koinAndroidScope
+        implementation globalDependencies.koinAndroidViewModel
+    }
+
+    multiDex = Group {
+        implementation globalDependencies.multidex
+    }
+
+    coroutines = Group {
+        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
+        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7"
+        testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.7'
+        implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.2.1"
+    }
+
+    // Submodules Platform
+    dataModule = Group {
+        implementation project(path: submodulesPlatform.data)
+    }
+
+    domainModule = Group {
+        implementation project(path: submodulesPlatform.domain)
+    }
+
+    // Submodules Features
+    featureTopRanked = Group {
+        implementation project(path: submodulesFeatures.feature_top_ranked)
+    }
+
+    featureNavigation = Group {
+        implementation project(path: submodulesFeatures.feature_navigation)
+    }
+
+    featureOnboarding = Group {
+        implementation project(path: submodulesFeatures.feature_onboarding)
+    }
+}
