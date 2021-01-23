@@ -27,6 +27,8 @@ ext {
     ROBOLECTRIC = "4.3"
     ARCH_COMP_TESTING = "1.1.1"
     MOCKITO_INLINE_ITS_WORK = "2.1.0"
+    RETROFIT_VERSION = "2.9.0"
+    LOGGING_VERSION = "4.3.1"
 
     submodulesPlatform = [
             domain: ':domain',
@@ -37,25 +39,30 @@ ext {
     // Compiles - Application
     //==============================================================================================
     globalDependencies = [
-            multidex            : "com.android.support:multidex:$MULTIDEX",
+            multidex                : "com.android.support:multidex:$MULTIDEX",
 
-            libJar              : fileTree(dir: 'libs', include: ['*.jar']),
-            kotlinStdLib        : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION",
-            appCompat           : "androidx.appcompat:appcompat:$APP_COMPAT",
-            coreKtx             : "androidx.core:core-ktx:$CORE_KTX",
+            libJar                  : fileTree(dir: 'libs', include: ['*.jar']),
+            kotlinStdLib            : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION",
+            appCompat               : "androidx.appcompat:appcompat:$APP_COMPAT",
+            coreKtx                 : "androidx.core:core-ktx:$CORE_KTX",
             //**** Android ****//
-            constraintLayout    : "androidx.constraintlayout:constraintlayout:$CONSTRAINT_LAYOUT",
-            material            : "com.google.android.material:material:1.2.1",
-            databindingCompiler : 'com.android.databinding:compiler:3.1.4',
+            constraintLayout        : "androidx.constraintlayout:constraintlayout:$CONSTRAINT_LAYOUT",
+            material                : "com.google.android.material:material:1.2.1",
+            databindingCompiler     : 'com.android.databinding:compiler:3.1.4',
 
             //**** Koin ****//
-            koinAndroid         : "org.koin:koin-android:$KOIN_VERSION",
-            koinAndroidScope    : "org.koin:koin-android-scope:$KOIN_VERSION",
-            koinAndroidViewModel: "org.koin:koin-android-viewmodel:$KOIN_VERSION",
+            koinAndroid             : "org.koin:koin-android:$KOIN_VERSION",
+            koinAndroidScope        : "org.koin:koin-android-scope:$KOIN_VERSION",
+            koinAndroidViewModel    : "org.koin:koin-android-viewmodel:$KOIN_VERSION",
             //**** jetpack ****//
-            archExtensions      : "android.arch.lifecycle:extensions:$LIFECYCLE_VERSION",
-            lifecycleCompiler   : "android.arch.lifecycle:compiler:$LIFECYCLE_VERSION",
+            archExtensions          : "android.arch.lifecycle:extensions:$LIFECYCLE_VERSION",
+            lifecycleCompiler       : "android.arch.lifecycle:compiler:$LIFECYCLE_VERSION",
 
+            //**** Retrofit2 ****//
+            retrofit                : "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION",
+            retrofitConverter       : "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION",
+            okhttp                  : "com.squareup.okhttp3:okhttp:$LOGGING_VERSION",
+            okhttpLoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$LOGGING_VERSION"
     ]
     //==============================================================================================
     // Compiles - Tests
@@ -78,7 +85,7 @@ ext {
     //==============================================================================================
     submodulesFeatures = [
             feature_top_ranked: ':features:feature-top-ranked',
-            feature_navigation  : ':features:feature-navigation',
-            feature_onboarding  : ':features:feature-onboarding'
+            feature_navigation: ':features:feature-navigation',
+            feature_onboarding: ':features:feature-onboarding'
     ]
 }

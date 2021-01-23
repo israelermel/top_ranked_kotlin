@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="top_ranked_request_error">Houve uma falha ao efetuar a consulta.</string>
+    <string name="top_ranked_unkown_error">Houve uma falha desconhecida.</string>
+    <string name="top_ranked_empty_body_response_error">Nossa consulta não retornou dados.</string>
+
+</resources>

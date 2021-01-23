@@ -40,6 +40,7 @@ dependencies {
     di()
     support()
     testing()
+    networking()
 
     // Submodules Platform
     dataModule()

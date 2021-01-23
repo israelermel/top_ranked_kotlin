@@ -20,6 +20,13 @@ ext {
         implementation globalDependencies.coreKtx
     }
 
+    networking = Group {
+        implementation globalDependencies.retrofit
+        implementation globalDependencies.retrofitConverter
+        implementation globalDependencies.okhttp
+        implementation globalDependencies.okhttpLoggingInterceptor
+    }
+
     testing = Group {
         testImplementation globalTestDependencies.jUnit
         testImplementation globalTestDependencies.testExt
