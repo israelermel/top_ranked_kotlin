@@ -54,6 +54,15 @@ subprojects {
                     abortOnError false
                 }
 
+                testOptions {
+                    unitTests {
+                        returnDefaultValues = true
+                        includeAndroidResources = true
+                    }
+
+                    animationsDisabled = true
+                }
+
             }
         }
     }

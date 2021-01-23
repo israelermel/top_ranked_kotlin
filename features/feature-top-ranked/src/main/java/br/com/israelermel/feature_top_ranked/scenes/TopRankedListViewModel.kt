@@ -26,7 +26,7 @@ class TopRankedListViewModel(
 
             when(val repositories = getGithubRepositoriesUseCase.execute(resquest)) {
                 is RequestResult.Success -> {
-                    _resultState.postValue(GitHubRepositoriesState.Success)
+                    _resultState.postValue(GitHubRepositoriesState.Success(repositories.result))
                 }
 
                 is RequestResult.Failure -> {

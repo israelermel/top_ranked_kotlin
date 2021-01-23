@@ -76,6 +76,7 @@ class TopRankedListActivity : AppCompatActivity() {
                 when(response) {
                     is GitHubRepositoriesState.Loading -> showLoadingState()
                     is GitHubRepositoriesState.Success -> {
+//                        val teste = response.repositories
                         renderLoading(LoadingState.UnLoad)
 
                         Toast.makeText(
