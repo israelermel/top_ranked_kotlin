@@ -6,10 +6,5 @@ apply from: "$rootProject.rootDir/groups.gradle"
 dependencies {
     stdKotlin()
     kotlinKtx()
-    di()
     support()
-    testing()
-
-    featureNavigation()
-    librariesArchThemes()
 }

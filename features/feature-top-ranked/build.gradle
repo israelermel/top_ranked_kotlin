@@ -4,9 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 apply from: "$rootProject.rootDir/groups.gradle"
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     stdKotlin()
     kotlinKtx()
     di()
@@ -16,5 +13,6 @@ dependencies {
 
     //Modules
     domainModule()
-
+    testingCoreUnitTestModule()
+    librariesArchThemes()
 }

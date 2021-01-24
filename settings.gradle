@@ -1,9 +1,21 @@
+//Modules
+include ':testing'
+include ':libraries'
 include ':features'
 include ':data'
 include ':domain'
 include ':app'
 
+//Features
 include ':features:feature-top-ranked'
 include ':features:feature-navigation'
 include ':features:feature-onboarding'
+
+//Libraries
+include ':libraries:library-arch-themes'
+
+//Testing
+include ':testing:testing-core-unitest'
+
+//ProjectName
 rootProject.name = "TopRanked"

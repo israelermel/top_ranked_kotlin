@@ -51,4 +51,7 @@ dependencies {
     featureNavigation()
     featureOnboarding()
 
+    //Libraries
+    librariesArchThemes()
+
 }

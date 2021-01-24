@@ -1,4 +1,4 @@
-package br.com.israelermel.feature_top_ranked.core
+package br.com.israelermel.testing_core_unitest
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer

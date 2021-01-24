@@ -27,34 +27,34 @@ ext {
         implementation globalDependencies.okhttpLoggingInterceptor
     }
 
+    testing = Group {
+
+        //unitTest
+        testImplementation globalTestDependencies.jUnit
+        testImplementation globalTestDependencies.testExt
+        testImplementation globalTestDependencies.mockitoCore
+        testImplementation globalTestDependencies.robolectric
+        testImplementation globalTestDependencies.koinTest
+        testImplementation globalTestDependencies.mockitoInline
+        testImplementation globalTestDependencies.mockitoInlineItsWork
+        testImplementation 'androidx.arch.core:core-testing:2.1.0'
+
+        //uiTest
+        //        androidTestImplementation globalTestDependencies.livedata_testing
+//        androidTestImplementation globalTestDependencies.mockitoAndroid
+        androidTestImplementation globalTestDependencies.espresso
+        androidTestImplementation globalTestDependencies.uiautomator
+        androidTestImplementation("org.koin:koin-test:2.2.2") {
+            exclude group: 'org.mockito'
+        }
+
+        androidTestImplementation('com.schibsted.spain:barista:3.7.0') {
+            exclude group: 'org.jetbrains.kotlin'
+        }
+
+    }
 
     di = Group {
-        testing = Group {
-
-            //unitTest
-            testImplementation globalTestDependencies.jUnit
-            testImplementation globalTestDependencies.testExt
-            testImplementation globalTestDependencies.mockitoCore
-            testImplementation globalTestDependencies.robolectric
-            testImplementation globalTestDependencies.koinTest
-            testImplementation globalTestDependencies.mockitoInline
-            testImplementation globalTestDependencies.mockitoInlineItsWork
-            testImplementation 'androidx.arch.core:core-testing:2.1.0'
-
-            //uiTest
-            //        androidTestImplementation globalTestDependencies.livedata_testing
-//        androidTestImplementation globalTestDependencies.mockitoAndroid
-            androidTestImplementation globalTestDependencies.espresso
-            androidTestImplementation globalTestDependencies.uiautomator
-            androidTestImplementation("org.koin:koin-test:2.2.2") {
-                exclude group: 'org.mockito'
-            }
-
-            androidTestImplementation('com.schibsted.spain:barista:3.7.0') {
-                exclude group: 'org.jetbrains.kotlin'
-            }
-
-        }
         implementation globalDependencies.koinAndroid
         implementation globalDependencies.koinAndroidScope
         implementation globalDependencies.koinAndroidViewModel
@@ -92,5 +92,15 @@ ext {
 
     featureOnboarding = Group {
         implementation project(path: submodulesFeatures.feature_onboarding)
+    }
+
+    //Submodules Testing
+    testingCoreUnitTestModule = Group {
+        testImplementation project(path: submodulesTesting.testing_core_unittest)
+    }
+
+    //Submodules Libraries
+    librariesArchThemes = Group {
+        implementation project(path: submodulesLibraries.library_arch_themes)
     }
 }

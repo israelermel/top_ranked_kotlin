@@ -1,4 +1,4 @@
-package br.com.israelermel.feature_top_ranked.core
+package br.com.israelermel.testing_core_unitest
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -9,11 +9,6 @@ import kotlinx.coroutines.test.setMain
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
-@ExperimentalCoroutinesApi
-fun MainCoroutineRule.runBlockingTest(block: suspend () -> Unit) =
-    this.testDispatcher.runBlockingTest {
-        block()
-    }
 
 @ExperimentalCoroutinesApi
 class MainCoroutineRule(
@@ -30,4 +25,9 @@ class MainCoroutineRule(
         Dispatchers.resetMain()
         testDispatcher.cleanupTestCoroutines()
     }
+
+    fun runBlockingTest(block: suspend () -> Unit) =
+        this.testDispatcher.runBlockingTest {
+            block()
+        }
 }

@@ -94,4 +94,20 @@ ext {
             feature_navigation: ':features:feature-navigation',
             feature_onboarding: ':features:feature-onboarding'
     ]
+
+    //==============================================================================================
+    // SubModules Testing
+    //==============================================================================================
+    submodulesTesting = [
+            testing_core_unittest: ':testing:testing-core-unitest'
+    ]
+
+    //==============================================================================================
+    // SubModules Testing
+    //==============================================================================================
+    submodulesLibraries = [
+            library_arch_themes: ':libraries:library-arch-themes'
+    ]
+
+
 }
