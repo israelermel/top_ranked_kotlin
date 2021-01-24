@@ -51,11 +51,4 @@ dependencies {
     featureNavigation()
     featureOnboarding()
 
-
-    androidTestImplementation('com.schibsted.spain:barista:3.5.0') {
-        exclude group: 'org.jetbrains.kotlin'
-    }
-
-    androidTestImplementation "org.koin:koin-test:2.0.1"
-
 }

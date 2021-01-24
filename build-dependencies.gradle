@@ -1,7 +1,7 @@
 ext {
     MULTIDEX = '1.0.3'
 
-    KOTLIN_VERSION = '1.3.41'
+    KOTLIN_VERSION = '1.3.72'
 
     //==============================================================================================
     //  Versions - View
@@ -9,12 +9,12 @@ ext {
     APP_COMPAT = "1.2.0"
     CORE_KTX = "1.3.2"
     CONSTRAINT_LAYOUT = "2.0.4"
-    LIFECYCLE_VERSION = "1.1.1"
+    LIFECYCLE_VERSION = "2.2.0"
 
     //==============================================================================================
     //  Versions - Koin
     //==============================================================================================
-    KOIN_VERSION = "2.0.1"
+    KOIN_VERSION = "2.2.2"
 
     //==============================================================================================
     //  Versions - Tests
@@ -29,6 +29,11 @@ ext {
     MOCKITO_INLINE_ITS_WORK = "2.1.0"
     RETROFIT_VERSION = "2.9.0"
     LOGGING_VERSION = "4.3.1"
+    MATERIAL = "1.2.1"
+    DATABINDING_COMPILER = "3.1.4"
+    MOCKITO_KOTLIN = "2.1.0"
+    EXPRESSO_CORE = "3.2.0"
+    UI_AUTOMATOR = "2.2.0"
 
     submodulesPlatform = [
             domain: ':domain',
@@ -47,8 +52,8 @@ ext {
             coreKtx                 : "androidx.core:core-ktx:$CORE_KTX",
             //**** Android ****//
             constraintLayout        : "androidx.constraintlayout:constraintlayout:$CONSTRAINT_LAYOUT",
-            material                : "com.google.android.material:material:1.2.1",
-            databindingCompiler     : 'com.android.databinding:compiler:3.1.4',
+            material                : "com.google.android.material:material:$MATERIAL",
+            databindingCompiler     : "com.android.databinding:compiler:$DATABINDING_COMPILER",
 
             //**** Koin ****//
             koinAndroid             : "org.koin:koin-android:$KOIN_VERSION",
@@ -76,8 +81,9 @@ ext {
             robolectric         : "org.robolectric:robolectric:$ROBOLECTRIC",
             koinTest            : "org.koin:koin-test:$KOIN_VERSION",
             livedata_testing    : "android.arch.core:core-testing:$ARCH_COMP_TESTING",
-            mockitoInlineItsWork: "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0",
-            espresso            : 'androidx.test.espresso:espresso-core:3.2.0',
+            mockitoInlineItsWork: "com.nhaarman.mockitokotlin2:mockito-kotlin:$MOCKITO_KOTLIN",
+            espresso            : "androidx.test.espresso:espresso-core:$EXPRESSO_CORE",
+            uiautomator          : "androidx.test.uiautomator:uiautomator:$UI_AUTOMATOR"
     ]
 
     //==============================================================================================
