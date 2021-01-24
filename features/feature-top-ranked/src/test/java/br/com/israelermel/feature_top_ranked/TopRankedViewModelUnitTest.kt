@@ -117,49 +117,8 @@ class TopRankedViewModelUnitTest {
         val dayCaptured = firstValue
         assertThat(day, `is`(dayCaptured))
     }
+   */
 
-    @Test
-    fun givenServerResponse200_whenFetch_shouldReturnSuccess() {
-        testCoroutineRule.runBlockingTest {
-            doReturn(emptyList<ApiUser>())
-                .`when`(apiHelper)
-                .getUsers()
-            val viewModel = SingleNetworkCallViewModel(apiHelper, databaseHelper)
-            viewModel.getUsers().observeForever(apiUsersObserver)
-            verify(apiHelper).getUsers()
-            verify(apiUsersObserver).onChanged(Resource.success(emptyList()))
-            viewModel.getUsers().removeObserver(apiUsersObserver)
-        }
-    }
-
-
-     */
-
-    private fun getThrowable(message: String? = "error") : Throwable {
-        return Throwable(message)
-    }
-
-    private fun getRepositoriesBoList(): List<RepositoriesBo> {
-        val repositoriesBo = mutableListOf<RepositoriesBo>().apply {
-            add(
-                RepositoriesBo(
-                    fullName = "teste",
-                    forksCount = 1,
-                    stargazersCount = 10,
-                    owerResponse = OwnerBo(login = "teste", avatarUrl = "teste")
-                )
-            )
-            add(
-                RepositoriesBo(
-                    fullName = "teste1",
-                    forksCount = 2,
-                    stargazersCount = 100,
-                    owerResponse = OwnerBo(login = "teste2", avatarUrl = "teste2")
-                )
-            )
-        }.toList()
-        return repositoriesBo
-    }
 
     private fun gitHubRepositoriesRequest(): GitHubRepositoriesRequest {
         val params = mutableMapOf<String, String>().apply {
