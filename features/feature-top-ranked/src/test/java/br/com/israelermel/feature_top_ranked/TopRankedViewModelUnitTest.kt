@@ -108,16 +108,6 @@ class TopRankedViewModelUnitTest {
         assertEquals(viewModel.resultState.getOrAwaitValue(), GitHubRepositoriesState.Error(exception))
     }
 
-    /*
-
-    argumentCaptor<String>().apply {
-        verify(formValidationUseCase).validateQuoteInstallmentsExpirationForSubscription(capture())
-        val dayCaptured = firstValue
-        assertThat(day, `is`(dayCaptured))
-    }
-   */
-
-
     private fun gitHubRepositoriesRequest(): GitHubRepositoriesRequest {
         val params = mutableMapOf<String, String>().apply {
             put(GitHubRepositoriesKeyParam.FILTER.value, "language:kotlin")
