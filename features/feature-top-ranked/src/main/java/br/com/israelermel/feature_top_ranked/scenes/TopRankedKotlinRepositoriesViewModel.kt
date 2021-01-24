@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.israelermel.domain.exceptions.RepositoriesException
-import br.com.israelermel.domain.models.repositories.BestProjectsKotlinRequest
+import br.com.israelermel.domain.models.repositories.GitHubRepositoriesRequest
 import br.com.israelermel.domain.states.RequestResult
 import br.com.israelermel.domain.usecase.repositories.GetGithubRepositoriesUseCase
 import br.com.israelermel.feature_top_ranked.states.GitHubRepositoriesState
 import kotlinx.coroutines.launch
 
-class TopRankedListViewModel(
+class TopRankedKotlinRepositoriesViewModel(
     private val getGithubRepositoriesUseCase: GetGithubRepositoriesUseCase
 ) : ViewModel() {
 
@@ -21,7 +21,7 @@ class TopRankedListViewModel(
         get() = _resultState
 
 
-    fun getGitHubRepositories(resquest: BestProjectsKotlinRequest) {
+    fun getGitHubRepositories(resquest: GitHubRepositoriesRequest) {
         viewModelScope.launch {
 
             when(val repositories = getGithubRepositoriesUseCase.execute(resquest)) {

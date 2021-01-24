@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name=".scenes.TopRankedProjectsActivity"
+            android:name=".scenes.TopRankedKotlinRepositoriesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>

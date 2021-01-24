@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <data class="TopRankedBinding">
+    <data class="TopRankedKotlinRepositoriesBinding">
         <variable
             name="viewModel"
-            type="br.com.israelermel.feature_top_ranked.scenes.TopRankedListViewModel" />
+            type="br.com.israelermel.feature_top_ranked.scenes.TopRankedKotlinRepositoriesViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,7 +11,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".scenes.TopRankedProjectsActivity">
+        tools:context=".scenes.TopRankedKotlinRepositoriesActivity">
 
         <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/login_progress_bar"
