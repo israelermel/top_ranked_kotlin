@@ -1,4 +1,4 @@
-package br.com.israelermel.feature_top_ranked
+package br.com.israelermel.feature_top_ranked.core
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

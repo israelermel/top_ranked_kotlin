@@ -1,45 +1,43 @@
-package br.com.israelermel.feature_top_ranked.core
+package br.com.israelermel.feature_top_ranked
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
+import br.com.israelermel.domain.exceptions.RepositoriesException
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesParamsEnum
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesRequest
 import br.com.israelermel.domain.models.repositories.OwnerBo
 import br.com.israelermel.domain.models.repositories.RepositoriesBo
+import br.com.israelermel.domain.states.RequestResult
 import br.com.israelermel.domain.usecase.repositories.GetGithubRepositoriesUseCase
-import br.com.israelermel.feature_top_ranked.TestCoroutineRule
+import br.com.israelermel.feature_top_ranked.core.MainCoroutineRule
+import br.com.israelermel.feature_top_ranked.core.getOrAwaitValue
+import br.com.israelermel.feature_top_ranked.core.observeForTesting
+import br.com.israelermel.feature_top_ranked.core.runBlockingTest
 import br.com.israelermel.feature_top_ranked.scenes.TopRankedListViewModel
 import br.com.israelermel.feature_top_ranked.states.GitHubRepositoriesState
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
-@RunWith(MockitoJUnitRunner::class)
 class TopRankedViewModelUnitTest {
 
     @get:Rule
     val testInstantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
 
     @get:Rule
-    val testCoroutineRule = TestCoroutineRule()
+    val testCoroutineRule = MainCoroutineRule()
 
     @Mock
     lateinit var getGithubRepositoriesUseCase: GetGithubRepositoriesUseCase
 
-    lateinit var viewModel : TopRankedListViewModel
-
-    @Mock
-    private lateinit var repositoriesUseCaseObserver: Observer<GitHubRepositoriesState>
+    lateinit var viewModel: TopRankedListViewModel
 
     @Before
     fun setUp() {
@@ -48,23 +46,77 @@ class TopRankedViewModelUnitTest {
     }
 
     @Test
-    fun addLikeCount() = testCoroutineRule.runBlockingTest {
-
+    fun onSuccess() = testCoroutineRule.runBlockingTest {
+        // Given
         val request = gitHubRepositoriesRequest()
+        viewModel.resultState.observeForTesting { }
 
-        doReturn(emptyList<RepositoriesBo>()).`when`(getGithubRepositoriesUseCase).execute(any())
+        doReturn(RequestResult.Success(emptyList<RepositoriesBo>())).`when`(getGithubRepositoriesUseCase).execute(any())
 
-        viewModel.resultState.observeForever(repositoriesUseCaseObserver)
-
+        // When
         viewModel.getGitHubRepositories(request)
 
-        verify(repositoriesUseCaseObserver).onChanged(GitHubRepositoriesState.Success(emptyList()))
+        // Then
+        assertEquals(viewModel.resultState.getOrAwaitValue(), GitHubRepositoriesState.Success(emptyList()))
 
-        viewModel.resultState.removeObserver(repositoriesUseCaseObserver)
     }
 
+    @Test
+    fun `empty body error`() = testCoroutineRule.runBlockingTest {
+        // Given
+        val exception = RepositoriesException.EmptyRepositoriesBodyException
+        val request = gitHubRepositoriesRequest()
+        viewModel.resultState.observeForTesting { }
+
+        doReturn(RequestResult.Failure(exception)).`when`(getGithubRepositoriesUseCase).execute(any())
+
+        // When
+        viewModel.getGitHubRepositories(request)
+
+        // Then
+        assertEquals(viewModel.resultState.getOrAwaitValue(), GitHubRepositoriesState.Error(exception))
+
+    }
+
+    @Test
+    fun `request error`() = testCoroutineRule.runBlockingTest {
+        // Given
+        val exception = RepositoriesException.RequestRepositoriesException
+        val request = gitHubRepositoriesRequest()
+        viewModel.resultState.observeForTesting { }
+
+        doReturn(RequestResult.Failure(exception)).`when`(getGithubRepositoriesUseCase).execute(any())
+
+        // When
+        viewModel.getGitHubRepositories(request)
+
+        // Then
+        assertEquals(viewModel.resultState.getOrAwaitValue(), GitHubRepositoriesState.Error(exception))
+    }
+
+    @Test
+    fun `unknown error`() = testCoroutineRule.runBlockingTest {
+        // Given
+        val exception = RepositoriesException.UnknownRepositoriesException
+        val request = gitHubRepositoriesRequest()
+        viewModel.resultState.observeForTesting { }
+
+        doReturn(RequestResult.Failure(exception)).`when`(getGithubRepositoriesUseCase).execute(any())
+
+        // When
+        viewModel.getGitHubRepositories(request)
+
+        // Then
+        assertEquals(viewModel.resultState.getOrAwaitValue(), GitHubRepositoriesState.Error(exception))
+    }
 
     /*
+
+    argumentCaptor<String>().apply {
+        verify(formValidationUseCase).validateQuoteInstallmentsExpirationForSubscription(capture())
+        val dayCaptured = firstValue
+        assertThat(day, `is`(dayCaptured))
+    }
 
     @Test
     fun givenServerResponse200_whenFetch_shouldReturnSuccess() {
@@ -82,6 +134,10 @@ class TopRankedViewModelUnitTest {
 
 
      */
+
+    private fun getThrowable(message: String? = "error") : Throwable {
+        return Throwable(message)
+    }
 
     private fun getRepositoriesBoList(): List<RepositoriesBo> {
         val repositoriesBo = mutableListOf<RepositoriesBo>().apply {
