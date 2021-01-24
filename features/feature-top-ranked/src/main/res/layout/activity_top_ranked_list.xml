@@ -11,7 +11,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".scenes.TopRankedListActivity">
+        tools:context=".scenes.TopRankedProjectsActivity">
 
         <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/login_progress_bar"

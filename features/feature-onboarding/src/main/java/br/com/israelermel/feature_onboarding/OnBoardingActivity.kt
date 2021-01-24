@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import br.com.israelermel.feature_navigation.NavigationActions
 import br.com.israelermel.feature_onboarding.databinding.OnBoardingBinding
 
-class OnboardingActivity : AppCompatActivity() {
+class OnBoardingActivity : AppCompatActivity() {
 
     private lateinit var binding: OnBoardingBinding
 

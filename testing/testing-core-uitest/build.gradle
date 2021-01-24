@@ -1,0 +1,19 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply from: "$rootProject.rootDir/groups.gradle"
+
+dependencies {
+    stdKotlin()
+    kotlinKtx()
+
+    implementation globalTestDependencies.espresso
+    implementation globalTestDependencies.uiautomator
+    implementation("org.koin:koin-test:2.2.2") {
+        exclude group: 'org.mockito'
+    }
+
+    implementation('com.schibsted.spain:barista:3.7.0') {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+}

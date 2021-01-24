@@ -16,6 +16,7 @@ include ':libraries:library-arch-themes'
 
 //Testing
 include ':testing:testing-core-unitest'
+include ':testing:testing-core-uitest'
 
 //ProjectName
 rootProject.name = "TopRanked"

@@ -3,7 +3,7 @@
     package="br.com.israelermel.feature_onboarding">
 
     <application>
-        <activity android:name=".OnboardingActivity">
+        <activity android:name=".OnBoardingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

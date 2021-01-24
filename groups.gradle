@@ -39,9 +39,6 @@ ext {
         testImplementation globalTestDependencies.mockitoInlineItsWork
         testImplementation 'androidx.arch.core:core-testing:2.1.0'
 
-        //uiTest
-        //        androidTestImplementation globalTestDependencies.livedata_testing
-//        androidTestImplementation globalTestDependencies.mockitoAndroid
         androidTestImplementation globalTestDependencies.espresso
         androidTestImplementation globalTestDependencies.uiautomator
         androidTestImplementation("org.koin:koin-test:2.2.2") {
@@ -97,6 +94,10 @@ ext {
     //Submodules Testing
     testingCoreUnitTestModule = Group {
         testImplementation project(path: submodulesTesting.testing_core_unittest)
+    }
+
+    testingCoreUiTestModule = Group {
+        androidTestImplementation project(path: submodulesTesting.testing_core_uittest)
     }
 
     //Submodules Libraries

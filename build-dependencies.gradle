@@ -20,19 +20,19 @@ ext {
     //  Versions - Tests
     //==============================================================================================
     JUNIT = "4.12"
-    TEST_EXT = "1.1.1"
+    TEST_EXT = "1.1.2"
     ESPRESSO_CORE = "3.1.1"
-    MOCKITO = "3.3.3"
-    MOCKITO_ANDROID = "2.25.0"
-    ROBOLECTRIC = "4.3"
+    MOCKITO = "3.6.0"
+    MOCKITO_ANDROID = "3.6.0"
+    ROBOLECTRIC = "4.4"
     ARCH_COMP_TESTING = "1.1.1"
     MOCKITO_INLINE_ITS_WORK = "2.1.0"
     RETROFIT_VERSION = "2.9.0"
     LOGGING_VERSION = "4.3.1"
     MATERIAL = "1.2.1"
     DATABINDING_COMPILER = "3.1.4"
-    MOCKITO_KOTLIN = "2.1.0"
-    EXPRESSO_CORE = "3.2.0"
+    MOCKITO_KOTLIN = "2.2.0"
+    EXPRESSO_CORE = "3.3.0"
     UI_AUTOMATOR = "2.2.0"
 
     submodulesPlatform = [
@@ -99,7 +99,8 @@ ext {
     // SubModules Testing
     //==============================================================================================
     submodulesTesting = [
-            testing_core_unittest: ':testing:testing-core-unitest'
+            testing_core_unittest: ':testing:testing-core-unitest',
+            testing_core_uittest: ':testing:testing-core-uitest'
     ]
 
     //==============================================================================================

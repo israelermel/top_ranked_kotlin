@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import br.com.israelermel.domain.models.repositories.GitHubRepositoriesParamsEnum
-import br.com.israelermel.domain.models.repositories.GitHubRepositoriesRequest
+import br.com.israelermel.domain.models.repositories.BestProjectsKotlinParam
+import br.com.israelermel.domain.models.repositories.BestProjectsKotlinRequest
 import br.com.israelermel.domain.states.LoadingState
 import br.com.israelermel.feature_top_ranked.databinding.TopRankedBinding
 import br.com.israelermel.feature_top_ranked.states.GitHubRepositoriesState
@@ -14,7 +14,7 @@ import br.com.israelermel.feature_top_ranked.states.TopRankedUserEvent
 import br.com.israelermel.feature_top_ranked.states.toStateResource
 import org.koin.android.viewmodel.ext.android.getViewModel
 
-class TopRankedListActivity : AppCompatActivity() {
+class TopRankedProjectsActivity : AppCompatActivity() {
 
     lateinit var binding: TopRankedBinding
     private lateinit var viewModel: TopRankedListViewModel
@@ -49,14 +49,14 @@ class TopRankedListActivity : AppCompatActivity() {
         }
     }
 
-    private fun TopRankedBinding.executeGetTopRankedRepositories(): GitHubRepositoriesRequest {
+    private fun TopRankedBinding.executeGetTopRankedRepositories(): BestProjectsKotlinRequest {
         val params = mutableMapOf<String, String>().apply {
-            put(GitHubRepositoriesParamsEnum.FILTER.value, "language:kotlin")
-            put(GitHubRepositoriesParamsEnum.SORT.value, "stargazers")
-            put(GitHubRepositoriesParamsEnum.PAGE.value, "1")
+            put(BestProjectsKotlinParam.FILTER.value, "language:kotlin")
+            put(BestProjectsKotlinParam.SORT.value, "stargazers")
+            put(BestProjectsKotlinParam.PAGE.value, "1")
         }
 
-        return GitHubRepositoriesRequest(
+        return BestProjectsKotlinRequest(
             params = params
         )
     }
@@ -72,7 +72,7 @@ class TopRankedListActivity : AppCompatActivity() {
 
     private fun attachObservers() {
         with(viewModel) {
-            resultState.observe(this@TopRankedListActivity, Observer { response ->
+            resultState.observe(this@TopRankedProjectsActivity, Observer { response ->
                 when(response) {
                     is GitHubRepositoriesState.Loading -> showLoadingState()
                     is GitHubRepositoriesState.Success -> {
@@ -80,7 +80,7 @@ class TopRankedListActivity : AppCompatActivity() {
                         renderLoading(LoadingState.UnLoad)
 
                         Toast.makeText(
-                            this@TopRankedListActivity, "Salvo com sucesso",
+                            this@TopRankedProjectsActivity, "Salvo com sucesso",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

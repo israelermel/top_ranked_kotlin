@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name=".scenes.TopRankedListActivity"
+            android:name=".scenes.TopRankedProjectsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>

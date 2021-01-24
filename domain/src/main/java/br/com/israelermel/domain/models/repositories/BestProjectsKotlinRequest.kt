@@ -1,11 +1,11 @@
 package br.com.israelermel.domain.models.repositories
 
-enum class GitHubRepositoriesParamsEnum(val value: String) {
+enum class BestProjectsKotlinParam(val value: String) {
     FILTER("q"),
     SORT("sort"),
     PAGE("page")
 }
 
-data class GitHubRepositoriesRequest(
+data class BestProjectsKotlinRequest(
     val params: Map<String, String>
 )

@@ -54,4 +54,9 @@ dependencies {
     //Libraries
     librariesArchThemes()
 
+    //Testing
+    testingCoreUiTestModule()
+
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.3.0'
+
 }

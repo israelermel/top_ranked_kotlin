@@ -2,8 +2,8 @@ package br.com.israelermel.feature_top_ranked
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import br.com.israelermel.domain.exceptions.RepositoriesException
-import br.com.israelermel.domain.models.repositories.GitHubRepositoriesParamsEnum
-import br.com.israelermel.domain.models.repositories.GitHubRepositoriesRequest
+import br.com.israelermel.domain.models.repositories.BestProjectsKotlinParam
+import br.com.israelermel.domain.models.repositories.BestProjectsKotlinRequest
 import br.com.israelermel.domain.models.repositories.RepositoriesBo
 import br.com.israelermel.domain.states.RequestResult
 import br.com.israelermel.domain.usecase.repositories.GetGithubRepositoriesUseCase
@@ -118,14 +118,14 @@ class TopRankedViewModelUnitTest {
    */
 
 
-    private fun gitHubRepositoriesRequest(): GitHubRepositoriesRequest {
+    private fun gitHubRepositoriesRequest(): BestProjectsKotlinRequest {
         val params = mutableMapOf<String, String>().apply {
-            put(GitHubRepositoriesParamsEnum.FILTER.value, "language:kotlin")
-            put(GitHubRepositoriesParamsEnum.SORT.value, "stargazers")
-            put(GitHubRepositoriesParamsEnum.PAGE.value, "1")
+            put(BestProjectsKotlinParam.FILTER.value, "language:kotlin")
+            put(BestProjectsKotlinParam.SORT.value, "stargazers")
+            put(BestProjectsKotlinParam.PAGE.value, "1")
         }
 
-        val request = GitHubRepositoriesRequest(
+        val request = BestProjectsKotlinRequest(
             params = params
         )
         return request
