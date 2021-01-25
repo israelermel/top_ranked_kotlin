@@ -9,6 +9,7 @@ import br.com.israelermel.domain.models.repositories.GitHubRepositoriesRequest
 import br.com.israelermel.domain.states.RequestResult
 import br.com.israelermel.domain.usecase.repositories.GetGithubRepositoriesUseCase
 import br.com.israelermel.feature_top_ranked.states.GitHubRepositoriesState
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class TopRankedKotlinRepositoriesViewModel(
@@ -24,9 +25,12 @@ class TopRankedKotlinRepositoriesViewModel(
     fun getGitHubRepositories(resquest: GitHubRepositoriesRequest) {
         viewModelScope.launch {
 
-            when(val repositories = getGithubRepositoriesUseCase.execute(resquest)) {
+            when (val repositories = getGithubRepositoriesUseCase.execute(resquest)) {
                 is RequestResult.Success -> {
-                    _resultState.postValue(GitHubRepositoriesState.Success(repositories.result))
+
+                    repositories.result.collectLatest {
+                        _resultState.postValue(GitHubRepositoriesState.Success(it))
+                    }
                 }
 
                 is RequestResult.Failure -> {

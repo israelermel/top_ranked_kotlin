@@ -9,6 +9,7 @@ dependencies {
     testing()
     coroutines()
     networking()
+    paging()
 
     implementation project(path: submodulesPlatform.domain)
 }

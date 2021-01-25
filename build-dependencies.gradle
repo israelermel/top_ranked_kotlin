@@ -34,6 +34,7 @@ ext {
     MOCKITO_KOTLIN = "2.2.0"
     EXPRESSO_CORE = "3.3.0"
     UI_AUTOMATOR = "2.2.0"
+    PAGING_3 = "3.0.0-alpha12"
 
     submodulesPlatform = [
             domain: ':domain',
@@ -67,7 +68,10 @@ ext {
             retrofit                : "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION",
             retrofitConverter       : "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION",
             okhttp                  : "com.squareup.okhttp3:okhttp:$LOGGING_VERSION",
-            okhttpLoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$LOGGING_VERSION"
+            okhttpLoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$LOGGING_VERSION",
+
+            //**** Paging ****//
+            pagingRuntimeKtx        : "androidx.paging:paging-runtime-ktx:$PAGING_3",
     ]
     //==============================================================================================
     // Compiles - Tests
@@ -83,7 +87,9 @@ ext {
             livedata_testing    : "android.arch.core:core-testing:$ARCH_COMP_TESTING",
             mockitoInlineItsWork: "com.nhaarman.mockitokotlin2:mockito-kotlin:$MOCKITO_KOTLIN",
             espresso            : "androidx.test.espresso:espresso-core:$EXPRESSO_CORE",
-            uiautomator          : "androidx.test.uiautomator:uiautomator:$UI_AUTOMATOR"
+            uiautomator         : "androidx.test.uiautomator:uiautomator:$UI_AUTOMATOR",
+            // alternatively - without Android dependencies for tests
+            pagingCommonKtx     : "androidx.paging:paging-common-ktx:$PAGING_3"
     ]
 
     //==============================================================================================
@@ -100,7 +106,7 @@ ext {
     //==============================================================================================
     submodulesTesting = [
             testing_core_unittest: ':testing:testing-core-unitest',
-            testing_core_uittest: ':testing:testing-core-uitest'
+            testing_core_uittest : ':testing:testing-core-uitest'
     ]
 
     //==============================================================================================

@@ -69,6 +69,11 @@ ext {
         implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.2.1"
     }
 
+    paging = Group {
+        implementation globalDependencies.pagingRuntimeKtx
+        testImplementation globalTestDependencies.pagingCommonKtx
+    }
+
     // Submodules Platform
     dataModule = Group {
         implementation project(path: submodulesPlatform.data)

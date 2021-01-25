@@ -10,6 +10,7 @@ dependencies {
     support()
     testing()
     coroutines()
+    paging()
 
     //Modules
     domainModule()
