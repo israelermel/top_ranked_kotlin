@@ -24,7 +24,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.map
 import org.koin.android.viewmodel.ext.android.getViewModel
 
 class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
@@ -56,6 +55,13 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
+        configRetryButtons()
+
+        val decoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        binding.list.addItemDecoration(decoration)
+    }
+
+    private fun configRetryButtons() {
         binding.list.adapter = adapter.withLoadStateHeaderAndFooter(
             header = ReposLoadStateAdapter { adapter.retry() },
             footer = ReposLoadStateAdapter { adapter.retry() }
@@ -63,7 +69,7 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
 
         adapter.addLoadStateListener { loadState ->
             // Only show the list if refresh succeeds.
-            binding.list.setVisible(loadState.source.refresh is LoadState.NotLoading )
+            binding.list.setVisible(loadState.source.refresh is LoadState.NotLoading)
             // Show loading spinner during initial load or refresh.
             binding.progressBar.setVisible(loadState.source.refresh is LoadState.Loading)
             // Show the retry state if initial load or refresh fails.
@@ -74,6 +80,7 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
                 ?: loadState.source.prepend as? LoadState.Error
                 ?: loadState.append as? LoadState.Error
                 ?: loadState.prepend as? LoadState.Error
+
             errorState?.let {
                 Toast.makeText(
                     this,
@@ -82,9 +89,6 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
                 ).show()
             }
         }
-
-        val decoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        binding.list.addItemDecoration(decoration)
     }
 
     private fun setupUserActions() {
@@ -116,6 +120,19 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateProjects(repositories: PagingData<RepositoriesBo>) {
+        MainScope().launch {
+            repositories.let {
+                adapter.submitData(it)
+            }
+        }
+
+        Toast.makeText(
+            this@TopRankedKotlinRepositoriesActivity, "Salvo com sucesso",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
     private fun attachObservers() {
         with(viewModel) {
             resultState.observe(this@TopRankedKotlinRepositoriesActivity, Observer { response ->
@@ -124,16 +141,7 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
                     is GitHubRepositoriesState.Success -> {
                         renderLoading(LoadingState.UnLoad)
 
-                        MainScope().launch {
-                            response.repositories.let {
-                                adapter.submitData(it)
-                            }
-                        }
-
-                        Toast.makeText(
-                            this@TopRankedKotlinRepositoriesActivity, "Salvo com sucesso",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        updateProjects(response.repositories)
                     }
 
                     is GitHubRepositoriesState.Error -> {
