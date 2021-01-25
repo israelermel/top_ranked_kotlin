@@ -8,23 +8,22 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.paging.PagingData
+import androidx.recyclerview.widget.DividerItemDecoration
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesKeyParam
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesRequest
 import br.com.israelermel.domain.models.repositories.RepositoriesBo
 import br.com.israelermel.domain.states.LoadingState
 import br.com.israelermel.feature_top_ranked.adapters.ReposAdapter
+import br.com.israelermel.feature_top_ranked.adapters.ReposLoadStateAdapter
 import br.com.israelermel.feature_top_ranked.databinding.TopRankedKotlinRepositoriesBinding
 import br.com.israelermel.feature_top_ranked.states.GitHubRepositoriesState
 import br.com.israelermel.feature_top_ranked.states.TopRankedUserEvent
 import br.com.israelermel.feature_top_ranked.states.toStateResource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.android.viewmodel.ext.android.getViewModel
 
 class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
@@ -41,14 +40,27 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupViewModel()
+        initAdapter()
+
         setupUserActions()
         attachObservers()
+
+        val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
     }
 
     private fun setupViewModel() {
         viewModel = getViewModel()
         binding.viewModel = viewModel
-        binding.list.adapter = adapter
+    }
+
+    private fun initAdapter() {
+        binding.list.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = ReposLoadStateAdapter { adapter.retry() },
+            footer = ReposLoadStateAdapter { adapter.retry() }
+        )
+
+        val decoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        binding.list.addItemDecoration(decoration)
     }
 
     private fun setupUserActions() {
@@ -56,25 +68,14 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
         actionOnEvent(
             TopRankedUserEvent.GetTopRankedUserEvent(request)
         )
-
-
-//        with(binding) {
-//            btnSearchTopRankedRepositories.setOnClickListener {
-//                val request = executeGetTopRankedRepositories()
-//
-//                actionOnEvent(
-//                    TopRankedUserEvent.GetTopRankedUserEvent(request)
-//                )
-//
-//            }
-//        }
     }
 
     private fun executeGetTopRankedRepositories(): GitHubRepositoriesRequest {
         val params = mutableMapOf<String, String>().apply {
             put(GitHubRepositoriesKeyParam.FILTER.value, "language:kotlin")
-            put(GitHubRepositoriesKeyParam.SORT.value, "stargazers")
+            put(GitHubRepositoriesKeyParam.SORT.value, "stars")
             put(GitHubRepositoriesKeyParam.PAGE.value, "1")
+            put(GitHubRepositoriesKeyParam.PER_PAGE.value, "50")
         }
 
         return GitHubRepositoriesRequest(
@@ -153,5 +154,15 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
             is LoadingState.Loading -> showLoadingState()
             is LoadingState.UnLoad -> hideLoadingState()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+//        outState.putString(LAST_SEARCH_QUERY, binding.searchRepo.text.trim().toString())
+    }
+
+    companion object {
+        private const val LAST_SEARCH_QUERY: String = "last_search_query"
+        private const val DEFAULT_QUERY = "1"
     }
 }

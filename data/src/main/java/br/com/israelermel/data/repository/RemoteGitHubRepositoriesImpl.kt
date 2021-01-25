@@ -8,6 +8,7 @@ import androidx.paging.liveData
 import br.com.israelermel.data.networking.api.RepositoriesApi
 import br.com.israelermel.data.paging.GithubPagingSource
 import br.com.israelermel.domain.exceptions.RepositoriesException
+import br.com.israelermel.domain.models.repositories.GitHubRepositoriesKeyParam
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesRequest
 import br.com.israelermel.domain.models.repositories.OwnerBo
 import br.com.israelermel.domain.models.repositories.RepositoriesBo
@@ -52,9 +53,8 @@ class RemoteGitHubRepositoriesImpl(
     override suspend fun getSearchResultStream(request: GitHubRepositoriesRequest): Flow<PagingData<RepositoriesBo>> {
         return Pager(
             config = PagingConfig(
-                pageSize = NETWORK_PAGE_SIZE,
-                enablePlaceholders = true,
-                prefetchDistance = NETWORK_PAGE_SIZE
+                pageSize = request.params[GitHubRepositoriesKeyParam.PER_PAGE.value]?.toInt() ?: NETWORK_PAGE_SIZE,
+                enablePlaceholders = true
             ),
             pagingSourceFactory = { GithubPagingSource(repositoriesApi) }
         ).flow

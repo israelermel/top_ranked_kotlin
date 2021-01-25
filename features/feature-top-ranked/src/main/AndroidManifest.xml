@@ -5,7 +5,6 @@
     <application>
         <activity
             android:name=".scenes.TopRankedKotlinRepositoriesActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="action.topranked.open" />
