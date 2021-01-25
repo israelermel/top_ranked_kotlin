@@ -15,6 +15,7 @@ import br.com.israelermel.domain.models.repositories.RepositoriesBo
 import br.com.israelermel.domain.states.LoadingState
 import br.com.israelermel.feature_top_ranked.adapters.ReposAdapter
 import br.com.israelermel.feature_top_ranked.adapters.ReposLoadStateAdapter
+import br.com.israelermel.feature_top_ranked.adapters.setVisible
 import br.com.israelermel.feature_top_ranked.databinding.TopRankedKotlinRepositoriesBinding
 import br.com.israelermel.feature_top_ranked.states.GitHubRepositoriesState
 import br.com.israelermel.feature_top_ranked.states.TopRankedUserEvent
@@ -45,6 +46,7 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
         setupUserActions()
         attachObservers()
 
+        binding.retryButton.setOnClickListener { adapter.retry() }
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
     }
 
@@ -58,6 +60,28 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
             header = ReposLoadStateAdapter { adapter.retry() },
             footer = ReposLoadStateAdapter { adapter.retry() }
         )
+
+        adapter.addLoadStateListener { loadState ->
+            // Only show the list if refresh succeeds.
+            binding.list.setVisible(loadState.source.refresh is LoadState.NotLoading )
+            // Show loading spinner during initial load or refresh.
+            binding.progressBar.setVisible(loadState.source.refresh is LoadState.Loading)
+            // Show the retry state if initial load or refresh fails.
+            binding.retryButton.setVisible(loadState.source.refresh is LoadState.Error)
+
+            // Toast on any error, regardless of whether it came from RemoteMediator or PagingSource
+            val errorState = loadState.source.append as? LoadState.Error
+                ?: loadState.source.prepend as? LoadState.Error
+                ?: loadState.append as? LoadState.Error
+                ?: loadState.prepend as? LoadState.Error
+            errorState?.let {
+                Toast.makeText(
+                    this,
+                    "\uD83D\uDE28 Wooops ${it.error}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
 
         val decoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         binding.list.addItemDecoration(decoration)
