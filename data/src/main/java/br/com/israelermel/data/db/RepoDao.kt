@@ -14,8 +14,8 @@ interface RepoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(repos: List<ReposEntity>)
 
-    @Query("SELECT * FROM repos WHERE repos.name LIKE :name ORDER BY repos.stargazersCount DESC ")
-    fun reposByName(name: String): PagingSource<Int, ReposEntity>
+    @Query("SELECT * FROM repos WHERE repos.language LIKE :language ORDER BY repos.stargazersCount DESC ")
+    fun reposByName(language: String): PagingSource<Int, ReposEntity>
 
     @Query("DELETE FROM repos")
     suspend fun clearRepos()

@@ -8,7 +8,7 @@ import retrofit2.HttpException
 import java.io.IOException
 
 const val GITHUB_STARTING_PAGE_INDEX = 1
-private const val NETWORK_PAGE_SIZE = 50
+const val NETWORK_PAGE_SIZE = 50
 
 class GithubPagingSource(
     private val service: RepositoriesApi

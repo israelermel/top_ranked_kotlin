@@ -19,45 +19,17 @@ class RemoteGitHubRepositoriesImpl(
     private val database: RepoDatabase
 ) : IGitHubRepositoriesRepository {
 
-//    override suspend fun getGitHubRepositories(request: GitHubRepositoriesRequest): List<RepositoriesBo> =
-//        withContext(Dispatchers.IO) {
-//            try {
-//                val response = repositoriesApi.getRepositories(request.params)
-//
-//                if (response.isSuccessful) {
-//                    response.body()?.items?.run {
-//                        this.map {
-//                            RepositoriesBo(
-//                                id = it.id,
-//                                fullName = it.name,
-//                                forksCount = it.forksCount,
-//                                stargazersCount = it.stargazersCount,
-//                                login = it.owner?.login ?: "",
-//                                avatarUrl = it.owner?.avatarUrl ?: ""
-//                            )
-//                        }
-//                    } ?: throw RepositoriesException.EmptyRepositoriesBodyException
-//
-//                } else {
-//                    throw RepositoriesException.UnknownRepositoriesException
-//                }
-//
-//            } catch (ex: NullPointerException) {
-//                throw RepositoriesException.RequestRepositoriesException
-//            }
-//        }
 
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun getSearchResultStream(request: GitHubRepositoriesRequest): Flow<PagingData<ReposEntity>> {
 
-//        val dbQuery = "%${request.params[GitHubRepositoriesKeyParam.FILTER.value]?.replace(' ', '%')}%"
-        val dbQuery = request.params[GitHubRepositoriesKeyParam.FILTER.value].toString()
-        val pagingSourceFactory = { database.reposDao().reposByName(request.params[GitHubRepositoriesKeyParam.FILTER.value].toString()) }
+        val dbQuery = "kotlin"
+        val pagingSourceFactory = { database.reposDao().reposByName(dbQuery) }
 
         return Pager(
             config = PagingConfig(
-                pageSize = request.params[GitHubRepositoriesKeyParam.PER_PAGE.value]?.toInt() ?: NETWORK_PAGE_SIZE,
-                enablePlaceholders = true
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = false
             ),
             remoteMediator = GithubRemoteMediator(
                 query = dbQuery,

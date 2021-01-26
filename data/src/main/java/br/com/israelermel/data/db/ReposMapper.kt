@@ -10,6 +10,7 @@ fun RepositoriesBo.toEntity() =
         forksCount = forksCount,
         name = fullName,
         stargazersCount = stargazersCount,
+        language = language,
         owner = OwnerEntity(
             login = login,
             avatarUrl = avatarUrl
@@ -23,5 +24,6 @@ fun ReposEntity.toBo() =
         stargazersCount = stargazersCount,
         forksCount = forksCount,
         login = owner?.login ?: "",
-        avatarUrl = owner?.avatarUrl ?: ""
+        avatarUrl = owner?.avatarUrl ?: "",
+        language = language,
     )

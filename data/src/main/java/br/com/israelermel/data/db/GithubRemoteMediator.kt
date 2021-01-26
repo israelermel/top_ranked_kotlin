@@ -1,5 +1,6 @@
 package br.com.israelermel.data.db
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -29,14 +30,18 @@ class GithubRemoteMediator(
 
             LoadType.PREPEND -> {
                 val remoteKeys = getRemoteKeyForFirstItem(state)
-                    ?: // The LoadType is PREPEND so some data was loaded before,
+                if (remoteKeys == null) {
+                    // The LoadType is PREPEND so some data was loaded before,
                     // so we should have been able to get remote keys
                     // If the remoteKeys are null, then we're an invalid state and we have a bug
                     throw InvalidObjectException("Remote key and the prevKey should not be null")
+                }
                 // If the previous key is null, then we can't request more data
-                val prevKey = remoteKeys.prevKey ?: return MediatorResult.Success(endOfPaginationReached = true)
-
-                prevKey
+                val prevKey = remoteKeys.prevKey
+                if (prevKey == null) {
+                    return MediatorResult.Success(endOfPaginationReached = true)
+                }
+                remoteKeys.prevKey
             }
             LoadType.APPEND -> {
                 val remoteKeys = getRemoteKeyForLastItem(state)
@@ -55,7 +60,7 @@ class GithubRemoteMediator(
                 put(GitHubRepositoriesKeyParam.FILTER.value, "language:kotlin")
                 put(GitHubRepositoriesKeyParam.SORT.value, "stars")
                 put(GitHubRepositoriesKeyParam.PAGE.value, page.toString())
-                put(GitHubRepositoriesKeyParam.PER_PAGE.value, state.config.pageSize.toString())
+                put(GitHubRepositoriesKeyParam.PER_PAGE.value, "50")
             }
 
             val apiResponse = service.getRepositories(paramsEnum)
@@ -71,6 +76,7 @@ class GithubRemoteMediator(
                     repoDatabase.reposDao().clearRepos()
                 }
                 val prevKey = if (page == GITHUB_STARTING_PAGE_INDEX) null else page - 1
+                Log.d("israel-prev", prevKey.toString())
                 val nextKey = if (endOfPaginationReached) null else page + 1
                 val keys = repos?.map {
                     RemoteKeys(repoId = it.id, prevKey = prevKey, nextKey = nextKey)

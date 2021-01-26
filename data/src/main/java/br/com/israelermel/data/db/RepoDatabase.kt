@@ -8,7 +8,7 @@ import br.com.israelermel.domain.models.repositories.ReposEntity
 
 @Database(
     entities = [ReposEntity::class, RemoteKeys::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class RepoDatabase : RoomDatabase() {

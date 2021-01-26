@@ -9,6 +9,7 @@ import br.com.israelermel.domain.models.repositories.GitHubRepositoriesRequest
 import br.com.israelermel.domain.states.RequestResult
 import br.com.israelermel.domain.usecase.repositories.GetGithubRepositoriesUseCase
 import br.com.israelermel.feature_top_ranked.states.GitHubRepositoriesState
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

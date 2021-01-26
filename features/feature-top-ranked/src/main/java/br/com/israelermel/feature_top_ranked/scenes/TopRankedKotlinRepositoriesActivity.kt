@@ -32,6 +32,7 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
     lateinit var binding: TopRankedKotlinRepositoriesBinding
     private lateinit var viewModel: TopRankedKotlinRepositoriesViewModel
     private val adapter = ReposAdapter()
+    var count = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +47,7 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
         setupUserActions()
         attachObservers()
 
+        count = 0
         binding.retryButton.setOnClickListener { adapter.retry() }
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
     }
@@ -112,6 +114,8 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
         )
     }
 
+
+
     private fun actionOnEvent(eventUser: TopRankedUserEvent) {
         when (eventUser) {
             is TopRankedUserEvent.GetTopRankedUserEvent -> {
@@ -125,13 +129,15 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
         MainScope().launch {
             repositories.let {
                 adapter.submitData(it)
+
+//                Toast.makeText(
+//                    this@TopRankedKotlinRepositoriesActivity, "Salvo com sucesso",
+//                    Toast.LENGTH_SHORT
+//                ).show()
             }
         }
 
-        Toast.makeText(
-            this@TopRankedKotlinRepositoriesActivity, "Salvo com sucesso",
-            Toast.LENGTH_SHORT
-        ).show()
+
     }
 
     private fun attachObservers() {
