@@ -31,7 +31,6 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
     lateinit var binding: TopRankedKotlinRepositoriesBinding
     private lateinit var viewModel: TopRankedKotlinRepositoriesViewModel
     private val adapter = ReposAdapter()
-    var count = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

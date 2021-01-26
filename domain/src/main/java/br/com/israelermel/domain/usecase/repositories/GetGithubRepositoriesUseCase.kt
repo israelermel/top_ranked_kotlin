@@ -13,7 +13,7 @@ class GetGithubRepositoriesUseCase(
 ) {
     suspend fun execute(request: GitHubRepositoriesRequest): RequestResult<Flow<PagingData<ReposEntity>>> {
         return try {
-            RequestResult.Success(repositoriesRepository.getSearchResultStream(request))
+            RequestResult.Success(repositoriesRepository.getReposLanguageKotlinResultStream(request))
         } catch (ex: Throwable) {
             RequestResult.Failure(
                 if (ex is RepositoriesException) ex

@@ -20,7 +20,7 @@ class RemoteGitHubRepositoriesImpl(
 
 
     @OptIn(ExperimentalPagingApi::class)
-    override suspend fun getSearchResultStream(request: GitHubRepositoriesRequest): Flow<PagingData<ReposEntity>> {
+    override suspend fun getReposLanguageKotlinResultStream(request: GitHubRepositoriesRequest): Flow<PagingData<ReposEntity>> {
 
         val queryFilterByKotlin = "kotlin"
         val pagingSourceFactory = { database.reposDao().reposByLanguage(queryFilterByKotlin) }

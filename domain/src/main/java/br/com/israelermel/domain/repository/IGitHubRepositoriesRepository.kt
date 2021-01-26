@@ -6,5 +6,5 @@ import br.com.israelermel.domain.models.repositories.ReposEntity
 import kotlinx.coroutines.flow.Flow
 
 interface IGitHubRepositoriesRepository {
-    suspend fun getSearchResultStream(request: GitHubRepositoriesRequest): Flow<PagingData<ReposEntity>>
+    suspend fun getReposLanguageKotlinResultStream(request: GitHubRepositoriesRequest): Flow<PagingData<ReposEntity>>
 }
