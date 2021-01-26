@@ -74,6 +74,12 @@ ext {
         testImplementation globalTestDependencies.pagingCommonKtx
     }
 
+    room = Group {
+        implementation globalDependencies.roomRuntime
+        kapt globalDependencies.roomCompiler
+        implementation globalDependencies.roomKtx
+    }
+
     // Submodules Platform
     dataModule = Group {
         implementation project(path: submodulesPlatform.data)

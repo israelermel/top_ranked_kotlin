@@ -1,6 +1,10 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+}
+
 apply from: "$rootProject.rootDir/groups.gradle"
 
 android {
@@ -56,7 +60,5 @@ dependencies {
 
     //Testing
     testingCoreUiTestModule()
-
-    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.3.0'
 
 }

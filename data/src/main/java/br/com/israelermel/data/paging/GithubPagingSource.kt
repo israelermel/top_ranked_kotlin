@@ -1,7 +1,6 @@
 package br.com.israelermel.data.paging
 
 import androidx.paging.PagingSource
-import br.com.israelermel.data.models.remote.RemoteGitHubRepositoriesResponse
 import br.com.israelermel.data.networking.api.RepositoriesApi
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesKeyParam
 import br.com.israelermel.domain.models.repositories.OwnerBo
@@ -9,7 +8,7 @@ import br.com.israelermel.domain.models.repositories.RepositoriesBo
 import retrofit2.HttpException
 import java.io.IOException
 
-private const val GITHUB_STARTING_PAGE_INDEX = 1
+const val GITHUB_STARTING_PAGE_INDEX = 1
 private const val NETWORK_PAGE_SIZE = 50
 
 class GithubPagingSource(
@@ -44,8 +43,8 @@ class GithubPagingSource(
                         stargazersCount = it.stargazersCount,
                         forksCount = it.forksCount,
                         owerResponse = OwnerBo(
-                            login = it.gitHubOwnerResponse.login,
-                            avatarUrl = it.gitHubOwnerResponse.avatarUrl
+                            login = it.gitHubOwnerEntity.login,
+                            avatarUrl = it.gitHubOwnerEntity.avatarUrl
                         )
                     )
                 } ?: emptyList(),

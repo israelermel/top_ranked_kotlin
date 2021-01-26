@@ -35,6 +35,7 @@ ext {
     EXPRESSO_CORE = "3.3.0"
     UI_AUTOMATOR = "2.2.0"
     PAGING_3 = "3.0.0-alpha12"
+    ROOM = '2.3.0-alpha03'
 
     submodulesPlatform = [
             domain: ':domain',
@@ -72,6 +73,12 @@ ext {
 
             //**** Paging ****//
             pagingRuntimeKtx        : "androidx.paging:paging-runtime-ktx:$PAGING_3",
+
+            //**** Room ****//
+            roomRuntime : "androidx.room:room-runtime:$ROOM",
+            roomCompiler :  "androidx.room:room-compiler:$ROOM",
+            // optional - Kotlin Extensions and Coroutines support for Room
+            roomKtx : "androidx.room:room-ktx:$ROOM"
     ]
     //==============================================================================================
     // Compiles - Tests

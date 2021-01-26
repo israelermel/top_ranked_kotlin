@@ -1,12 +1,9 @@
 package br.com.israelermel.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.liveData
+import androidx.paging.*
+import br.com.israelermel.data.db.GithubRemoteMediator
+import br.com.israelermel.data.db.RepoDatabase
 import br.com.israelermel.data.networking.api.RepositoriesApi
-import br.com.israelermel.data.paging.GithubPagingSource
 import br.com.israelermel.domain.exceptions.RepositoriesException
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesKeyParam
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesRequest
@@ -17,8 +14,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
+@OptIn(ExperimentalPagingApi::class)
 class RemoteGitHubRepositoriesImpl(
-    private val repositoriesApi: RepositoriesApi
+    private val repositoriesApi: RepositoriesApi,
+    private val database: RepoDatabase
 ) : IGitHubRepositoriesRepository {
 
     override suspend fun getGitHubRepositories(request: GitHubRepositoriesRequest): List<RepositoriesBo> =
@@ -34,8 +33,8 @@ class RemoteGitHubRepositoriesImpl(
                                 forksCount = it.forksCount,
                                 stargazersCount = it.stargazersCount,
                                 owerResponse = OwnerBo(
-                                    login = it.gitHubOwnerResponse.login,
-                                    avatarUrl = it.gitHubOwnerResponse.avatarUrl
+                                    login = it.gitHubOwnerEntity.login,
+                                    avatarUrl = it.gitHubOwnerEntity.avatarUrl
                                 )
                             )
                         }
@@ -51,12 +50,22 @@ class RemoteGitHubRepositoriesImpl(
         }
 
     override suspend fun getSearchResultStream(request: GitHubRepositoriesRequest): Flow<PagingData<RepositoriesBo>> {
+
+        val dbQuery = "%${request.params[GitHubRepositoriesKeyParam.FILTER.value]?.replace(' ', '%')}%"
+        val pagingSourceFactory =  { database.reposDao().reposByName(dbQuery)}
+
+
         return Pager(
             config = PagingConfig(
                 pageSize = request.params[GitHubRepositoriesKeyParam.PER_PAGE.value]?.toInt() ?: NETWORK_PAGE_SIZE,
                 enablePlaceholders = true
             ),
-            pagingSourceFactory = { GithubPagingSource(repositoriesApi) }
+            remoteMediator = GithubRemoteMediator(
+                query = dbQuery,
+                service = repositoriesApi,
+                repoDatabase = database
+            ),
+            pagingSourceFactory = pagingSourceFactory
         ).flow
     }
 

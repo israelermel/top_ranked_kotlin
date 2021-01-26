@@ -1,6 +1,10 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+}
+
 apply from: "$rootProject.rootDir/groups.gradle"
 
 dependencies {
@@ -10,6 +14,7 @@ dependencies {
     coroutines()
     networking()
     paging()
+    room()
 
     implementation project(path: submodulesPlatform.domain)
 }

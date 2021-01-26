@@ -6,6 +6,8 @@ import br.com.israelermel.data.networking.api.RepositoriesApi
 import retrofit2.Response
 import retrofit2.Retrofit
 
+const val IN_QUALIFIER = "in:full_name,stargazers_count"
+
 class RepositoriesService(private val retrofit: Retrofit) : RepositoriesApi {
 
     override suspend fun getRepositories(options: Map<String, String>): Response<RemoteGitHubRepositoriesItemsResponse> {
