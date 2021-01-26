@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 
 class RepositoriesService(private val retrofit: Retrofit) : RepositoriesApi {
 
-    override suspend fun getRepositories(options: Map<String, String>): Response<RemoteGitHubRepositoriesItemsResponse> {
-        return retrofit.create(RepositoriesApi::class.java).getRepositories(options)
+    override suspend fun getRepositoriesFilterByKotlin(options: Map<String, String>): Response<RemoteGitHubRepositoriesItemsResponse> {
+        return retrofit.create(RepositoriesApi::class.java).getRepositoriesFilterByKotlin(options)
     }
 }

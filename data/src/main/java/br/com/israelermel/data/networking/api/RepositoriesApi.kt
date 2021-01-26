@@ -7,6 +7,6 @@ import retrofit2.http.QueryMap
 
 interface RepositoriesApi {
 
-    @GET("search/repositories")
-    suspend fun getRepositories(@QueryMap options: Map<String, String>): Response<RemoteGitHubRepositoriesItemsResponse>
+    @GET("search/repositories?sort=stars")
+    suspend fun getRepositoriesFilterByKotlin(@QueryMap options: Map<String, String>): Response<RemoteGitHubRepositoriesItemsResponse>
 }

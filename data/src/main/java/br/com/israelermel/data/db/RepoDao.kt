@@ -15,7 +15,7 @@ interface RepoDao {
     suspend fun insertAll(repos: List<ReposEntity>)
 
     @Query("SELECT * FROM repos WHERE repos.language LIKE :language ORDER BY repos.stargazersCount DESC ")
-    fun reposByName(language: String): PagingSource<Int, ReposEntity>
+    fun reposByLanguage(language: String): PagingSource<Int, ReposEntity>
 
     @Query("DELETE FROM repos")
     suspend fun clearRepos()

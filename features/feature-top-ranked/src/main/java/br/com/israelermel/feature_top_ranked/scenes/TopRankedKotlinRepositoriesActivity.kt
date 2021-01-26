@@ -47,9 +47,6 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
         setupUserActions()
         attachObservers()
 
-        count = 0
-        binding.retryButton.setOnClickListener { adapter.retry() }
-        val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
     }
 
     private fun setupViewModel() {
@@ -71,14 +68,11 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
         )
 
         adapter.addLoadStateListener { loadState ->
-            // Only show the list if refresh succeeds.
+
             binding.list.setVisible(loadState.source.refresh is LoadState.NotLoading)
-            // Show loading spinner during initial load or refresh.
             binding.progressBar.setVisible(loadState.source.refresh is LoadState.Loading)
-            // Show the retry state if initial load or refresh fails.
             binding.retryButton.setVisible(loadState.source.refresh is LoadState.Error)
 
-            // Toast on any error, regardless of whether it came from RemoteMediator or PagingSource
             val errorState = loadState.source.append as? LoadState.Error
                 ?: loadState.source.prepend as? LoadState.Error
                 ?: loadState.append as? LoadState.Error
@@ -87,7 +81,7 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
             errorState?.let {
                 Toast.makeText(
                     this,
-                    "\uD83D\uDE28 Wooops ${it.error}",
+                    "\uD83D\uDE28 Falha: ${it.error}",
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -99,6 +93,8 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
         actionOnEvent(
             TopRankedUserEvent.GetTopRankedUserEvent(request)
         )
+
+        binding.retryButton.setOnClickListener { adapter.retry() }
     }
 
     private fun executeGetTopRankedRepositories(): GitHubRepositoriesRequest {
@@ -129,15 +125,8 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
         MainScope().launch {
             repositories.let {
                 adapter.submitData(it)
-
-//                Toast.makeText(
-//                    this@TopRankedKotlinRepositoriesActivity, "Salvo com sucesso",
-//                    Toast.LENGTH_SHORT
-//                ).show()
             }
         }
-
-
     }
 
     private fun attachObservers() {
@@ -195,13 +184,4 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-//        outState.putString(LAST_SEARCH_QUERY, binding.searchRepo.text.trim().toString())
-    }
-
-    companion object {
-        private const val LAST_SEARCH_QUERY: String = "last_search_query"
-        private const val DEFAULT_QUERY = "1"
-    }
 }
