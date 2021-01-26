@@ -11,6 +11,7 @@ import androidx.paging.PagingData
 import androidx.recyclerview.widget.DividerItemDecoration
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesKeyParam
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesRequest
+import br.com.israelermel.domain.models.repositories.ReposEntity
 import br.com.israelermel.domain.models.repositories.RepositoriesBo
 import br.com.israelermel.domain.states.LoadingState
 import br.com.israelermel.feature_top_ranked.adapters.ReposAdapter
@@ -120,7 +121,7 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateProjects(repositories: PagingData<RepositoriesBo>) {
+    private fun updateProjects(repositories: PagingData<ReposEntity>) {
         MainScope().launch {
             repositories.let {
                 adapter.submitData(it)

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import br.com.israelermel.domain.models.repositories.ReposEntity
 import br.com.israelermel.domain.models.repositories.RepositoriesBo
 import br.com.israelermel.feature_top_ranked.R
 
@@ -15,9 +16,9 @@ class RepoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val stars: TextView = view.findViewById(R.id.repo_stars)
 
 
-    private var repo: RepositoriesBo? = null
+    private var repo: ReposEntity? = null
 
-    fun bind(repo: RepositoriesBo?) {
+    fun bind(repo: ReposEntity?) {
         if (repo == null) {
             val resources = itemView.resources
             name.text = "carregando..."
@@ -29,14 +30,14 @@ class RepoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    private fun showRepoData(repo: RepositoriesBo) {
+    private fun showRepoData(repo: ReposEntity) {
         this.repo = repo
-        name.text = repo.fullName
+        name.text = repo.name
 
         // if the description is missing, hide the TextView
         var descriptionVisibility = View.GONE
-        if (repo.owerResponse.login.isNotEmpty()) {
-            description.text = repo.owerResponse.login
+        if (repo.owner?.login.orEmpty().isNotEmpty()) {
+            description.text = repo.owner?.login.orEmpty()
             descriptionVisibility = View.VISIBLE
         }
         description.visibility = descriptionVisibility

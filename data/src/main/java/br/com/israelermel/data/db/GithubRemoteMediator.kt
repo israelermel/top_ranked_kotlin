@@ -6,10 +6,9 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import br.com.israelermel.data.networking.api.RepositoriesApi
-import br.com.israelermel.data.networking.service.IN_QUALIFIER
 import br.com.israelermel.data.paging.GITHUB_STARTING_PAGE_INDEX
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesKeyParam
-import br.com.israelermel.domain.models.repositories.RepositoriesBo
+import br.com.israelermel.domain.models.repositories.ReposEntity
 import retrofit2.HttpException
 import java.io.IOException
 import java.io.InvalidObjectException

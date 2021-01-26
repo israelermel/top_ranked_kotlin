@@ -1,7 +1,6 @@
 package br.com.israelermel.data.networking.service
 
 import br.com.israelermel.data.models.remote.RemoteGitHubRepositoriesItemsResponse
-import br.com.israelermel.data.models.remote.RemoteGitHubRepositoriesResponse
 import br.com.israelermel.data.networking.api.RepositoriesApi
 import retrofit2.Response
 import retrofit2.Retrofit

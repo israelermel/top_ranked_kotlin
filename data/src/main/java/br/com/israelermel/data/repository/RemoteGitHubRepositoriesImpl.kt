@@ -1,59 +1,58 @@
 package br.com.israelermel.data.repository
 
-import androidx.paging.*
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import br.com.israelermel.data.db.GithubRemoteMediator
 import br.com.israelermel.data.db.RepoDatabase
 import br.com.israelermel.data.networking.api.RepositoriesApi
-import br.com.israelermel.domain.exceptions.RepositoriesException
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesKeyParam
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesRequest
-import br.com.israelermel.domain.models.repositories.OwnerBo
-import br.com.israelermel.domain.models.repositories.RepositoriesBo
+import br.com.israelermel.domain.models.repositories.ReposEntity
 import br.com.israelermel.domain.repository.IGitHubRepositoriesRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
 
-@OptIn(ExperimentalPagingApi::class)
+
 class RemoteGitHubRepositoriesImpl(
     private val repositoriesApi: RepositoriesApi,
     private val database: RepoDatabase
 ) : IGitHubRepositoriesRepository {
 
-    override suspend fun getGitHubRepositories(request: GitHubRepositoriesRequest): List<RepositoriesBo> =
-        withContext(Dispatchers.IO) {
-            try {
-                val response = repositoriesApi.getRepositories(request.params)
+//    override suspend fun getGitHubRepositories(request: GitHubRepositoriesRequest): List<RepositoriesBo> =
+//        withContext(Dispatchers.IO) {
+//            try {
+//                val response = repositoriesApi.getRepositories(request.params)
+//
+//                if (response.isSuccessful) {
+//                    response.body()?.items?.run {
+//                        this.map {
+//                            RepositoriesBo(
+//                                id = it.id,
+//                                fullName = it.name,
+//                                forksCount = it.forksCount,
+//                                stargazersCount = it.stargazersCount,
+//                                login = it.owner?.login ?: "",
+//                                avatarUrl = it.owner?.avatarUrl ?: ""
+//                            )
+//                        }
+//                    } ?: throw RepositoriesException.EmptyRepositoriesBodyException
+//
+//                } else {
+//                    throw RepositoriesException.UnknownRepositoriesException
+//                }
+//
+//            } catch (ex: NullPointerException) {
+//                throw RepositoriesException.RequestRepositoriesException
+//            }
+//        }
 
-                if (response.isSuccessful) {
-                    response.body()?.items?.run {
-                        this.map {
-                            RepositoriesBo(
-                                fullName = it.fullName,
-                                forksCount = it.forksCount,
-                                stargazersCount = it.stargazersCount,
-                                owerResponse = OwnerBo(
-                                    login = it.gitHubOwnerEntity.login,
-                                    avatarUrl = it.gitHubOwnerEntity.avatarUrl
-                                )
-                            )
-                        }
-                    } ?: throw RepositoriesException.EmptyRepositoriesBodyException
+    @OptIn(ExperimentalPagingApi::class)
+    override suspend fun getSearchResultStream(request: GitHubRepositoriesRequest): Flow<PagingData<ReposEntity>> {
 
-                } else {
-                    throw RepositoriesException.UnknownRepositoriesException
-                }
-
-            } catch (ex: NullPointerException) {
-                throw RepositoriesException.RequestRepositoriesException
-            }
-        }
-
-    override suspend fun getSearchResultStream(request: GitHubRepositoriesRequest): Flow<PagingData<RepositoriesBo>> {
-
-        val dbQuery = "%${request.params[GitHubRepositoriesKeyParam.FILTER.value]?.replace(' ', '%')}%"
-        val pagingSourceFactory =  { database.reposDao().reposByName(dbQuery)}
-
+//        val dbQuery = "%${request.params[GitHubRepositoriesKeyParam.FILTER.value]?.replace(' ', '%')}%"
+        val dbQuery = request.params[GitHubRepositoriesKeyParam.FILTER.value].toString()
+        val pagingSourceFactory = { database.reposDao().reposByName(request.params[GitHubRepositoriesKeyParam.FILTER.value].toString()) }
 
         return Pager(
             config = PagingConfig(

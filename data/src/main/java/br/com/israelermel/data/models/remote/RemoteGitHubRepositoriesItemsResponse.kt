@@ -1,6 +1,6 @@
 package br.com.israelermel.data.models.remote
 
-import br.com.israelermel.data.db.ReposEntity
+import br.com.israelermel.domain.models.repositories.ReposEntity
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 

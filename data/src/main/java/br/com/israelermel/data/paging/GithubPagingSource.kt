@@ -3,7 +3,6 @@ package br.com.israelermel.data.paging
 import androidx.paging.PagingSource
 import br.com.israelermel.data.networking.api.RepositoriesApi
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesKeyParam
-import br.com.israelermel.domain.models.repositories.OwnerBo
 import br.com.israelermel.domain.models.repositories.RepositoriesBo
 import retrofit2.HttpException
 import java.io.IOException
@@ -39,13 +38,12 @@ class GithubPagingSource(
             LoadResult.Page(
                 data = repos?.map {
                     RepositoriesBo(
-                        fullName = it.fullName,
+                        id = it.id,
+                        fullName = it.name,
                         stargazersCount = it.stargazersCount,
                         forksCount = it.forksCount,
-                        owerResponse = OwnerBo(
-                            login = it.gitHubOwnerEntity.login,
-                            avatarUrl = it.gitHubOwnerEntity.avatarUrl
-                        )
+                        login = it.owner?.login ?: "",
+                        avatarUrl = it.owner?.avatarUrl ?: ""
                     )
                 } ?: emptyList(),
                 prevKey = if (position == GITHUB_STARTING_PAGE_INDEX) null else position - 1,
