@@ -1,6 +1,5 @@
 package br.com.israelermel.data.paging
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -65,7 +64,6 @@ class GithubRemoteMediator(
                 }
 
                 val prevKey = if (page == GITHUB_STARTING_PAGE_INDEX) null else page - 1
-                Log.d("israel-prev", prevKey.toString())
                 val nextKey = if (endOfPaginationReached) null else page + 1
 
                 val keys = repos?.map {

@@ -4,11 +4,9 @@ import androidx.paging.PagingData
 import br.com.israelermel.domain.exceptions.RepositoriesException
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesRequest
 import br.com.israelermel.domain.models.repositories.ReposEntity
-import br.com.israelermel.domain.models.repositories.RepositoriesBo
 import br.com.israelermel.domain.repository.IGitHubRepositoriesRepository
 import br.com.israelermel.domain.states.RequestResult
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 class GetGithubRepositoriesUseCase(
     private val repositoriesRepository: IGitHubRepositoriesRepository

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesKeyParam
 import br.com.israelermel.domain.models.repositories.GitHubRepositoriesRequest
 import br.com.israelermel.domain.models.repositories.ReposEntity
-import br.com.israelermel.domain.models.repositories.RepositoriesBo
 import br.com.israelermel.domain.states.LoadingState
 import br.com.israelermel.feature_top_ranked.adapters.ReposAdapter
 import br.com.israelermel.feature_top_ranked.adapters.ReposLoadStateAdapter
@@ -154,7 +153,6 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
             adapter.loadStateFlow
                 .distinctUntilChangedBy { it.refresh }
                 .filter { it.refresh is LoadState.NotLoading }
-                .collect { binding.list.scrollToPosition(0) }
         }
     }
 
