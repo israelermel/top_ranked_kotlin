@@ -6,6 +6,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import br.com.israelermel.feature_top_ranked.R
 import br.com.israelermel.feature_top_ranked.databinding.LoadStateFooterViewItemBinding
+import br.com.israelermel.library_arch_extensions.setIsVisible
 
 class ReposLoadStateViewHolder(
     private val binding: LoadStateFooterViewItemBinding,
@@ -21,9 +22,9 @@ class ReposLoadStateViewHolder(
             binding.errorMsg.text = loadState.error.localizedMessage
         }
 
-        binding.progressBar.setVisibilityByState(loadState)
-        binding.retryButton.setVisible(loadState !is LoadState.Loading)
-        binding.errorMsg.setVisible(loadState !is LoadState.Loading)
+        binding.progressBar.setIsVisible(loadState is LoadState.Loading)
+        binding.retryButton.setIsVisible(loadState !is LoadState.Loading)
+        binding.errorMsg.setIsVisible(loadState !is LoadState.Loading)
 
     }
 

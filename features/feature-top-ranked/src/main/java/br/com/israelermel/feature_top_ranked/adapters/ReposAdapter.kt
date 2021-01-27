@@ -4,7 +4,6 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import br.com.israelermel.domain.models.repositories.ReposEntity
-import br.com.israelermel.domain.models.repositories.RepositoriesBo
 
 class ReposAdapter : PagingDataAdapter<ReposEntity, RepoViewHolder>(REPO_COMPARATOR) {
 
@@ -22,7 +21,7 @@ class ReposAdapter : PagingDataAdapter<ReposEntity, RepoViewHolder>(REPO_COMPARA
     companion object {
         private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<ReposEntity>() {
             override fun areItemsTheSame(oldItem: ReposEntity, newItem: ReposEntity): Boolean =
-                oldItem.name == newItem.name
+                oldItem.id == newItem.id
 
             override fun areContentsTheSame(oldItem: ReposEntity, newItem: ReposEntity): Boolean =
                 oldItem == newItem

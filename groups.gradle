@@ -37,7 +37,7 @@ ext {
         testImplementation globalTestDependencies.koinTest
         testImplementation globalTestDependencies.mockitoInline
         testImplementation globalTestDependencies.mockitoInlineItsWork
-        testImplementation 'androidx.arch.core:core-testing:2.1.0'
+        testImplementation globalTestDependencies.livedataTesting
 
         androidTestImplementation globalTestDependencies.espresso
         androidTestImplementation globalTestDependencies.uiautomator
@@ -62,11 +62,11 @@ ext {
     }
 
     coroutines = Group {
-        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
-        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7"
-        testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.7'
-        implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.2.1"
+        implementation globalDependencies.coroutinesCore
+        implementation globalDependencies.coroutinesAndroid
+        testImplementation globalTestDependencies.coroutinesTest
+        implementation globalDependencies.lifecycleViewmodelKtx
+        implementation globalDependencies.coroutinesPlayServices
     }
 
     paging = Group {
@@ -115,4 +115,14 @@ ext {
     librariesArchThemes = Group {
         implementation project(path: submodulesLibraries.library_arch_themes)
     }
+
+    librariesArchExtensions = Group {
+        implementation project(path: submodulesLibraries.library_arch_extensions)
+    }
+
+    //Submodules Infra
+    infraDatabase = Group {
+        implementation project(path: submodulesInfra.infra_database)
+    }
+
 }

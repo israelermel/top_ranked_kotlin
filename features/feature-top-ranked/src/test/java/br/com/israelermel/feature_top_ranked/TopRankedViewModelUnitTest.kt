@@ -1,14 +1,14 @@
 package br.com.israelermel.feature_top_ranked
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.paging.PagingData
 import br.com.israelermel.domain.exceptions.RepositoriesException
-import br.com.israelermel.domain.models.repositories.GitHubRepositoriesKeyParam
-import br.com.israelermel.domain.models.repositories.GitHubRepositoriesRequest
-import br.com.israelermel.domain.models.repositories.RepositoriesBo
+import br.com.israelermel.domain.models.repositories.ReposKeyParam
+import br.com.israelermel.domain.models.repositories.ReposRequest
 import br.com.israelermel.domain.states.RequestResult
-import br.com.israelermel.domain.usecase.repositories.GetGithubRepositoriesUseCase
+import br.com.israelermel.domain.usecase.repositories.GetReposLanguageKotlinUseCase
 import br.com.israelermel.feature_top_ranked.scenes.TopRankedKotlinRepositoriesViewModel
-import br.com.israelermel.feature_top_ranked.states.GitHubRepositoriesState
+import br.com.israelermel.feature_top_ranked.states.ReposResultState
 import br.com.israelermel.testing_core_unitest.MainCoroutineRule
 import br.com.israelermel.testing_core_unitest.getOrAwaitValue
 import br.com.israelermel.testing_core_unitest.observeForTesting
@@ -21,7 +21,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
+import org.mockito.MockitoAnnotations.openMocks
 
 @ExperimentalCoroutinesApi
 class TopRankedViewModelUnitTest {
@@ -33,29 +33,29 @@ class TopRankedViewModelUnitTest {
     val testCoroutineRule = MainCoroutineRule()
 
     @Mock
-    lateinit var getGithubRepositoriesUseCase: GetGithubRepositoriesUseCase
+    lateinit var getReposLanguageKotlinUseCase: GetReposLanguageKotlinUseCase
 
     lateinit var viewModel: TopRankedKotlinRepositoriesViewModel
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
-        viewModel = TopRankedKotlinRepositoriesViewModel(getGithubRepositoriesUseCase)
+        openMocks(this)
+        viewModel = TopRankedKotlinRepositoriesViewModel(getReposLanguageKotlinUseCase)
     }
 
     @Test
     fun onSuccess() = testCoroutineRule.runBlockingTest {
         // Given
         val request = gitHubRepositoriesRequest()
-        viewModel.resultState.observeForTesting { }
+        viewModel.resultResultState.observeForTesting { }
 
-        doReturn(RequestResult.Success(emptyList<RepositoriesBo>())).`when`(getGithubRepositoriesUseCase).execute(any())
+        doReturn(RequestResult.Success(emptyList<ReposBo>())).`when`(getReposLanguageKotlinUseCase).execute(any())
 
         // When
         viewModel.getGitHubRepositories(request)
 
         // Then
-        assertEquals(viewModel.resultState.getOrAwaitValue(), GitHubRepositoriesState.Success(emptyList()))
+        assertEquals(viewModel.resultResultState.getOrAwaitValue(), ReposResultState.Success(PagingData.empty()))
 
     }
 
@@ -64,15 +64,15 @@ class TopRankedViewModelUnitTest {
         // Given
         val exception = RepositoriesException.EmptyRepositoriesBodyException
         val request = gitHubRepositoriesRequest()
-        viewModel.resultState.observeForTesting { }
+        viewModel.resultResultState.observeForTesting { }
 
-        doReturn(RequestResult.Failure(exception)).`when`(getGithubRepositoriesUseCase).execute(any())
+        doReturn(RequestResult.Failure(exception)).`when`(getReposLanguageKotlinUseCase).execute(any())
 
         // When
         viewModel.getGitHubRepositories(request)
 
         // Then
-        assertEquals(viewModel.resultState.getOrAwaitValue(), GitHubRepositoriesState.Error(exception))
+        assertEquals(viewModel.resultResultState.getOrAwaitValue(), ReposResultState.Error(exception))
 
     }
 
@@ -81,15 +81,15 @@ class TopRankedViewModelUnitTest {
         // Given
         val exception = RepositoriesException.RequestRepositoriesException
         val request = gitHubRepositoriesRequest()
-        viewModel.resultState.observeForTesting { }
+        viewModel.resultResultState.observeForTesting { }
 
-        doReturn(RequestResult.Failure(exception)).`when`(getGithubRepositoriesUseCase).execute(any())
+        doReturn(RequestResult.Failure(exception)).`when`(getReposLanguageKotlinUseCase).execute(any())
 
         // When
         viewModel.getGitHubRepositories(request)
 
         // Then
-        assertEquals(viewModel.resultState.getOrAwaitValue(), GitHubRepositoriesState.Error(exception))
+        assertEquals(viewModel.resultResultState.getOrAwaitValue(), ReposResultState.Error(exception))
     }
 
     @Test
@@ -97,25 +97,25 @@ class TopRankedViewModelUnitTest {
         // Given
         val exception = RepositoriesException.UnknownRepositoriesException
         val request = gitHubRepositoriesRequest()
-        viewModel.resultState.observeForTesting { }
+        viewModel.resultResultState.observeForTesting { }
 
-        doReturn(RequestResult.Failure(exception)).`when`(getGithubRepositoriesUseCase).execute(any())
+        doReturn(RequestResult.Failure(exception)).`when`(getReposLanguageKotlinUseCase).execute(any())
 
         // When
         viewModel.getGitHubRepositories(request)
 
         // Then
-        assertEquals(viewModel.resultState.getOrAwaitValue(), GitHubRepositoriesState.Error(exception))
+        assertEquals(viewModel.resultResultState.getOrAwaitValue(), ReposResultState.Error(exception))
     }
 
-    private fun gitHubRepositoriesRequest(): GitHubRepositoriesRequest {
+    private fun gitHubRepositoriesRequest(): ReposRequest {
         val params = mutableMapOf<String, String>().apply {
-            put(GitHubRepositoriesKeyParam.FILTER.value, "language:kotlin")
-            put(GitHubRepositoriesKeyParam.SORT.value, "stargazers")
-            put(GitHubRepositoriesKeyParam.PAGE.value, "1")
+            put(ReposKeyParam.FILTER.value, "language:kotlin")
+            put(ReposKeyParam.SORT.value, "stargazers")
+            put(ReposKeyParam.PAGE.value, "1")
         }
 
-        val request = GitHubRepositoriesRequest(
+        val request = ReposRequest(
             params = params
         )
         return request

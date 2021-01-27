@@ -21,4 +21,5 @@ dependencies {
     domainModule()
     testingCoreUnitTestModule()
     librariesArchThemes()
+    librariesArchExtensions()
 }

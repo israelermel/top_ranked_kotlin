@@ -10,7 +10,7 @@ apply from: "$rootProject.rootDir/groups.gradle"
 dependencies {
     stdKotlin()
     paging()
-    room()
-    networking()
 
+    implementation globalDependencies.roomKtx
+    implementation globalDependencies.retrofitConverter
 }

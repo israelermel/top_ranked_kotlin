@@ -36,6 +36,9 @@ ext {
     UI_AUTOMATOR = "2.2.0"
     PAGING_3 = "3.0.0-alpha12"
     ROOM = '2.3.0-alpha03'
+    COROUTINES = '1.3.7'
+    LIFECYCLE_VIEWMODEL_KTX = "2.2.0"
+    COROUTINES_PLAY_SERVICES = "1.2.1"
 
     submodulesPlatform = [
             domain: ':domain',
@@ -75,10 +78,16 @@ ext {
             pagingRuntimeKtx        : "androidx.paging:paging-runtime-ktx:$PAGING_3",
 
             //**** Room ****//
-            roomRuntime : "androidx.room:room-runtime:$ROOM",
-            roomCompiler :  "androidx.room:room-compiler:$ROOM",
+            roomRuntime             : "androidx.room:room-runtime:$ROOM",
+            roomCompiler            : "androidx.room:room-compiler:$ROOM",
             // optional - Kotlin Extensions and Coroutines support for Room
-            roomKtx : "androidx.room:room-ktx:$ROOM"
+            roomKtx                 : "androidx.room:room-ktx:$ROOM",
+
+            //**** Coroutines ****//
+            coroutinesCore          : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES",
+            coroutinesAndroid       : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES",
+            lifecycleViewmodelKtx   : "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VIEWMODEL_KTX",
+            coroutinesPlayServices  : "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$COROUTINES_PLAY_SERVICES"
     ]
     //==============================================================================================
     // Compiles - Tests
@@ -91,12 +100,12 @@ ext {
             mockitoInline       : "org.mockito:mockito-inline:$MOCKITO",
             robolectric         : "org.robolectric:robolectric:$ROBOLECTRIC",
             koinTest            : "org.koin:koin-test:$KOIN_VERSION",
-            livedata_testing    : "android.arch.core:core-testing:$ARCH_COMP_TESTING",
+            livedataTesting     : "android.arch.core:core-testing:$ARCH_COMP_TESTING",
             mockitoInlineItsWork: "com.nhaarman.mockitokotlin2:mockito-kotlin:$MOCKITO_KOTLIN",
             espresso            : "androidx.test.espresso:espresso-core:$EXPRESSO_CORE",
             uiautomator         : "androidx.test.uiautomator:uiautomator:$UI_AUTOMATOR",
-            // alternatively - without Android dependencies for tests
-            pagingCommonKtx     : "androidx.paging:paging-common-ktx:$PAGING_3"
+            pagingCommonKtx     : "androidx.paging:paging-common-ktx:$PAGING_3",
+            coroutinesTest      : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES"
     ]
 
     //==============================================================================================
@@ -117,11 +126,19 @@ ext {
     ]
 
     //==============================================================================================
-    // SubModules Testing
+    // SubModules Libraries
     //==============================================================================================
     submodulesLibraries = [
-            library_arch_themes: ':libraries:library-arch-themes'
+            library_arch_themes: ':libraries:library-arch-themes',
+            library_arch_extensions: ':libraries:library-arch-extensions'
     ]
 
+
+    //==============================================================================================
+    // SubModules Infra
+    //==============================================================================================
+    submodulesInfra = [
+            infra_database: ':infra:infra-database'
+    ]
 
 }

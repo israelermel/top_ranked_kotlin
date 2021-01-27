@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.israelermel.domain.models.repositories.ReposEntity
-import br.com.israelermel.domain.models.repositories.RepositoriesBo
 import br.com.israelermel.feature_top_ranked.R
 
 class RepoViewHolder(view: View) : RecyclerView.ViewHolder(view) {

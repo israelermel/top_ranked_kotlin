@@ -61,4 +61,7 @@ dependencies {
     //Testing
     testingCoreUiTestModule()
 
+    //Infra
+    infraDatabase()
+
 }

@@ -9,21 +9,19 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.DividerItemDecoration
-import br.com.israelermel.domain.models.repositories.GitHubRepositoriesKeyParam
-import br.com.israelermel.domain.models.repositories.GitHubRepositoriesRequest
 import br.com.israelermel.domain.models.repositories.ReposEntity
 import br.com.israelermel.domain.states.LoadingState
 import br.com.israelermel.feature_top_ranked.adapters.ReposAdapter
 import br.com.israelermel.feature_top_ranked.adapters.ReposLoadStateAdapter
-import br.com.israelermel.feature_top_ranked.adapters.setVisible
 import br.com.israelermel.feature_top_ranked.databinding.TopRankedKotlinRepositoriesBinding
-import br.com.israelermel.feature_top_ranked.states.GitHubRepositoriesState
+import br.com.israelermel.feature_top_ranked.states.ReposResultState
 import br.com.israelermel.feature_top_ranked.states.TopRankedUserEvent
 import br.com.israelermel.feature_top_ranked.states.toStateResource
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
+import br.com.israelermel.library_arch_extensions.setIsVisible
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.getViewModel
 
 class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
@@ -35,9 +33,10 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = TopRankedKotlinRepositoriesBinding.inflate(layoutInflater)
-        binding.lifecycleOwner = this
-        setContentView(binding.root)
+        binding = TopRankedKotlinRepositoriesBinding.inflate(layoutInflater).apply {
+            lifecycleOwner = this@TopRankedKotlinRepositoriesActivity
+            setContentView(root)
+        }
 
         setupViewModel()
         initAdapter()
@@ -67,9 +66,9 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
 
         adapter.addLoadStateListener { loadState ->
 
-            binding.list.setVisible(loadState.source.refresh is LoadState.NotLoading)
-            binding.progressBar.setVisible(loadState.source.refresh is LoadState.Loading)
-            binding.retryButton.setVisible(loadState.source.refresh is LoadState.Error)
+            binding.list.setIsVisible(loadState.source.refresh is LoadState.NotLoading)
+            binding.progressBar.setIsVisible(loadState.source.refresh is LoadState.Loading)
+            binding.retryButton.setIsVisible(loadState.source.refresh is LoadState.Error)
 
             val errorState = loadState.source.append as? LoadState.Error
                 ?: loadState.source.prepend as? LoadState.Error
@@ -87,34 +86,18 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
     }
 
     private fun setupUserActions() {
-        val request = executeGetTopRankedRepositories()
         actionOnEvent(
-            TopRankedUserEvent.GetTopRankedUserEvent(request)
+            TopRankedUserEvent.GetTopRankedUserEvent
         )
 
         binding.retryButton.setOnClickListener { adapter.retry() }
     }
 
-    private fun executeGetTopRankedRepositories(): GitHubRepositoriesRequest {
-        val params = mutableMapOf<String, String>().apply {
-            put(GitHubRepositoriesKeyParam.FILTER.value, "language:kotlin")
-            put(GitHubRepositoriesKeyParam.SORT.value, "stars")
-            put(GitHubRepositoriesKeyParam.PAGE.value, "1")
-            put(GitHubRepositoriesKeyParam.PER_PAGE.value, "50")
-        }
-
-        return GitHubRepositoriesRequest(
-            params = params
-        )
-    }
-
-
-
     private fun actionOnEvent(eventUser: TopRankedUserEvent) {
         when (eventUser) {
             is TopRankedUserEvent.GetTopRankedUserEvent -> {
                 renderLoading(LoadingState.Loading)
-                viewModel.getGitHubRepositories(eventUser.getTopRankedProjects)
+                viewModel.getGitHubRepositories()
             }
         }
     }
@@ -129,16 +112,16 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
 
     private fun attachObservers() {
         with(viewModel) {
-            resultState.observe(this@TopRankedKotlinRepositoriesActivity, Observer { response ->
+            resultResultState.observe(this@TopRankedKotlinRepositoriesActivity, Observer { response ->
                 when (response) {
-                    is GitHubRepositoriesState.Loading -> showLoadingState()
-                    is GitHubRepositoriesState.Success -> {
+                    is ReposResultState.Loading -> showLoadingState()
+                    is ReposResultState.Success -> {
                         renderLoading(LoadingState.UnLoad)
 
                         updateProjects(response.repositories)
                     }
 
-                    is GitHubRepositoriesState.Error -> {
+                    is ReposResultState.Error -> {
                         renderLoading(LoadingState.UnLoad)
 
                         showErrorState(response.toStateResource().message)

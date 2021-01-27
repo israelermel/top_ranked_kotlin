@@ -1,10 +1,10 @@
-//Modules
 include ':testing'
 include ':libraries'
 include ':features'
 include ':data'
 include ':domain'
 include ':app'
+include ':infra'
 
 //Features
 include ':features:feature-top-ranked'
@@ -13,10 +13,14 @@ include ':features:feature-onboarding'
 
 //Libraries
 include ':libraries:library-arch-themes'
+include ':libraries:library-arch-extensions'
 
 //Testing
 include ':testing:testing-core-unitest'
 include ':testing:testing-core-uitest'
+
+//Infra
+include ':infra:infra-database'
 
 //ProjectName
 rootProject.name = "TopRanked"

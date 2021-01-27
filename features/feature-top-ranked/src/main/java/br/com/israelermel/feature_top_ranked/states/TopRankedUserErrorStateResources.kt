@@ -22,4 +22,4 @@ data class TopRankedUserErrorStateResources(val message: Int) {
     }
 }
 
-fun GitHubRepositoriesState.Error.toStateResource() = TopRankedUserErrorStateResources(error)
+fun ReposResultState.Error.toStateResource() = TopRankedUserErrorStateResources(error)
