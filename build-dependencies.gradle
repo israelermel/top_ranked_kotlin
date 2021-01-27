@@ -39,6 +39,7 @@ ext {
     COROUTINES = '1.3.7'
     LIFECYCLE_VIEWMODEL_KTX = "2.2.0"
     COROUTINES_PLAY_SERVICES = "1.2.1"
+    COIL = "1.1.1"
 
     submodulesPlatform = [
             domain: ':domain',
@@ -87,7 +88,10 @@ ext {
             coroutinesCore          : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES",
             coroutinesAndroid       : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES",
             lifecycleViewmodelKtx   : "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VIEWMODEL_KTX",
-            coroutinesPlayServices  : "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$COROUTINES_PLAY_SERVICES"
+            coroutinesPlayServices  : "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$COROUTINES_PLAY_SERVICES",
+
+            //******* Images ********//
+            coil                    : "io.coil-kt:coil:$COIL"
     ]
     //==============================================================================================
     // Compiles - Tests
@@ -129,7 +133,7 @@ ext {
     // SubModules Libraries
     //==============================================================================================
     submodulesLibraries = [
-            library_arch_themes: ':libraries:library-arch-themes',
+            library_arch_themes    : ':libraries:library-arch-themes',
             library_arch_extensions: ':libraries:library-arch-extensions'
     ]
 

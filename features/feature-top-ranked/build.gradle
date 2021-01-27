@@ -16,6 +16,7 @@ dependencies {
     testing()
     coroutines()
     paging()
+    image()
 
     //Modules
     domainModule()

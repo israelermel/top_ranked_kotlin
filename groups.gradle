@@ -80,6 +80,10 @@ ext {
         implementation globalDependencies.roomKtx
     }
 
+    image = Group {
+        implementation globalDependencies.coil
+    }
+
     // Submodules Platform
     dataModule = Group {
         implementation project(path: submodulesPlatform.data)
