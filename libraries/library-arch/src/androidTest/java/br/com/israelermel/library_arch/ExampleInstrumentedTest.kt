@@ -1,4 +1,4 @@
-package br.com.israelermel.library_arch_extensions
+package br.com.israelermel.library_arch
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

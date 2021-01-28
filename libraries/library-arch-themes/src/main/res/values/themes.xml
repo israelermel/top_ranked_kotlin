@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextViewTitle">
+        <item name="android:textSize">@dimen/text_font_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewSubtitle">
+        <item name="android:textSize">@dimen/text_font_subtitle</item>
+    </style>
 </resources>

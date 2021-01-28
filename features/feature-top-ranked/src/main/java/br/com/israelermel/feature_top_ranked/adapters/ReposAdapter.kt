@@ -1,9 +1,11 @@
 package br.com.israelermel.feature_top_ranked.adapters
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import br.com.israelermel.domain.models.repositories.ReposEntity
+import br.com.israelermel.feature_top_ranked.databinding.RepoViewItemBinding
 
 class ReposAdapter : PagingDataAdapter<ReposEntity, RepoViewHolder>(REPO_COMPARATOR) {
 

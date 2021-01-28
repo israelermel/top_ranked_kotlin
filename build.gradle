@@ -50,6 +50,10 @@ subprojects {
                     dataBinding true
                 }
 
+                viewBinding {
+                    enabled = true
+                }
+
                 lintOptions {
                     abortOnError false
                 }

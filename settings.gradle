@@ -13,7 +13,7 @@ include ':features:feature-onboarding'
 
 //Libraries
 include ':libraries:library-arch-themes'
-include ':libraries:library-arch-extensions'
+include ':libraries:library-arch'
 
 //Testing
 include ':testing:testing-core-unitest'

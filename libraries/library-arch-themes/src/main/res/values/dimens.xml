@@ -4,4 +4,5 @@
 
 
     <dimen name="text_font_title">18sp</dimen>
+    <dimen name="text_font_subtitle">14sp</dimen>
 </resources>

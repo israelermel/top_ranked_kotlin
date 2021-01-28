@@ -1,4 +1,4 @@
-package br.com.israelermel.library_arch_extensions
+package br.com.israelermel.library_arch
 
 import org.junit.Test
 

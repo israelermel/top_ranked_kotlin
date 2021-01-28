@@ -6,7 +6,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import br.com.israelermel.feature_top_ranked.R
 import br.com.israelermel.feature_top_ranked.databinding.LoadStateFooterViewItemBinding
-import br.com.israelermel.library_arch_extensions.extensions.setIsVisible
+import br.com.israelermel.library_arch.extensions.setIsVisible
 
 class ReposLoadStateViewHolder(
     private val binding: LoadStateFooterViewItemBinding,

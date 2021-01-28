@@ -134,7 +134,7 @@ ext {
     //==============================================================================================
     submodulesLibraries = [
             library_arch_themes    : ':libraries:library-arch-themes',
-            library_arch_extensions: ':libraries:library-arch-extensions'
+            library_arch_extensions: ':libraries:library-arch'
     ]
 
 

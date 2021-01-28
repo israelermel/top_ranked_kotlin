@@ -17,7 +17,7 @@ import br.com.israelermel.feature_top_ranked.databinding.TopRankedKotlinReposito
 import br.com.israelermel.feature_top_ranked.states.ReposResultState
 import br.com.israelermel.feature_top_ranked.states.TopRankedUserEvent
 import br.com.israelermel.feature_top_ranked.states.toStateResource
-import br.com.israelermel.library_arch_extensions.extensions.setIsVisible
+import br.com.israelermel.library_arch.extensions.setIsVisible
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter

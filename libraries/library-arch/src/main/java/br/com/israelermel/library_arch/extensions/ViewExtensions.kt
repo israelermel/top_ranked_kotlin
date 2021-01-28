@@ -1,4 +1,4 @@
-package br.com.israelermel.library_arch_extensions.extensions
+package br.com.israelermel.library_arch.extensions
 
 import android.view.View
 
