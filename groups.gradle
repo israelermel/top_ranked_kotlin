@@ -111,10 +111,6 @@ ext {
         testImplementation project(path: submodulesTesting.testing_core_unittest)
     }
 
-    testingCoreUiTestModule = Group {
-        androidTestImplementation project(path: submodulesTesting.testing_core_uittest)
-    }
-
     //Submodules Libraries
     librariesArchThemes = Group {
         implementation project(path: submodulesLibraries.library_arch_themes)

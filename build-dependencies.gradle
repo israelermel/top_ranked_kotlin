@@ -125,8 +125,7 @@ ext {
     // SubModules Testing
     //==============================================================================================
     submodulesTesting = [
-            testing_core_unittest: ':testing:testing-core-unitest',
-            testing_core_uittest : ':testing:testing-core-uitest'
+            testing_core_unittest: ':testing:testing-core-unitest'
     ]
 
     //==============================================================================================

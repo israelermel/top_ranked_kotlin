@@ -5,6 +5,7 @@
     <application>
         <activity
             android:name=".scenes.TopRankedKotlinRepositoriesActivity"
+            android:label="@string/text_repo_name"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="action.topranked.open" />

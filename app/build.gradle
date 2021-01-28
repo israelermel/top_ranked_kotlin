@@ -58,9 +58,6 @@ dependencies {
     //Libraries
     librariesArchThemes()
 
-    //Testing
-    testingCoreUiTestModule()
-
     //Infra
     infraDatabase()
 

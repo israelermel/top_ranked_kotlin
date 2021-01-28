@@ -17,6 +17,4 @@ dependencies {
 
     featureNavigation()
     librariesArchThemes()
-
-    testingCoreUiTestModule()
 }

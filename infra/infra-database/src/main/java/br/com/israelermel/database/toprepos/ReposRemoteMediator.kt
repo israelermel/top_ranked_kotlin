@@ -30,9 +30,9 @@ class ReposRemoteMediator(
 
             LoadType.PREPEND -> {
                 val remoteKeys = getRemoteKeyForFirstItem(state) ?: throw InvalidObjectException("Remote key and the prevKey should not be null")
-                val prevKey = remoteKeys.prevKey ?: return MediatorResult.Success(endOfPaginationReached = true)
+                remoteKeys.prevKey ?: return MediatorResult.Success(endOfPaginationReached = true)
 
-                prevKey
+                remoteKeys.prevKey
             }
             LoadType.APPEND -> {
                 val remoteKeys = getRemoteKeyForLastItem(state)
@@ -113,6 +113,6 @@ class ReposRemoteMediator(
 
     companion object {
         const val GITHUB_STARTING_PAGE_INDEX = 1
-        const val NETWORK_PAGE_SIZE = 30
+        const val NETWORK_PAGE_SIZE = 50
     }
 }

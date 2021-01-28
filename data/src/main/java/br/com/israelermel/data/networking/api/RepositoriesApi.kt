@@ -7,6 +7,6 @@ import retrofit2.http.QueryMap
 
 interface RepositoriesApi {
 
-    @GET("search/repositories?sort=stars")
+    @GET("search/repositories?sort=stargazers")
     suspend fun getRepositoriesFilterByKotlin(@QueryMap options: Map<String, String>): Response<ReposItemsResponse>
 }

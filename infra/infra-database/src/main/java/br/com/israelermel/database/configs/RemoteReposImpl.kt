@@ -20,13 +20,12 @@ class RemoteReposImpl(
     override suspend fun getReposLanguageKotlinResultStream(): Flow<PagingData<ReposEntity>> {
 
         val queryFilterByKotlin = "kotlin"
-        val pagingSourceFactory = { database.reposDao().reposByLanguage(queryFilterByKotlin) }
+        val pagingSourceFactory = { database.reposDao().reposByLanguage("%${queryFilterByKotlin}%") }
 
         return Pager(
             config = PagingConfig(
                 pageSize = ReposRemoteMediator.NETWORK_PAGE_SIZE,
-                enablePlaceholders = false,
-                initialLoadSize = ReposRemoteMediator.NETWORK_PAGE_SIZE + 10
+                enablePlaceholders = false
             ),
             remoteMediator = ReposRemoteMediator(
                 query = queryFilterByKotlin,

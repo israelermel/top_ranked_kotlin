@@ -17,10 +17,9 @@ include ':libraries:library-arch'
 
 //Testing
 include ':testing:testing-core-unitest'
-include ':testing:testing-core-uitest'
 
 //Infra
 include ':infra:infra-database'
 
 //ProjectName
-rootProject.name = "TopRanked"
+rootProject.name = "Melhores Repo - Israel"

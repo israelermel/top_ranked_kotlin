@@ -18,27 +18,24 @@ class RepoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private fun showRepoData(repo: ReposEntity) {
 
-        binding.run {
+        repo.owner?.avatarUrl?.let {
+            binding.repoPhoto.setRoundedImage(it)
+        }
 
-            repo.owner?.avatarUrl?.let {
-                repoPhoto.setRoundedImage(it)
-            }
+        repo.owner?.login?.let {
+            binding.txtAuthor.text = it
+        }
 
-            repo.owner?.login?.let {
-                txtAuthor.text = it
-            }
+        repo.name?.let {
+            binding.txtRepoName.text = it
+        }
 
-            repo.name?.let {
-                txtRepoName.text = it
-            }
+        repo.forksCount?.let {
+            binding.txtForksCount.text = it.toString()
+        }
 
-            repo.forksCount?.let {
-                txtForksCount.text = it.toString()
-            }
-
-            repo.stargazersCount?.let {
-                txtStars.text = it.toString()
-            }
+        repo.stargazersCount?.let {
+            binding.txtStars.text = it.toString()
         }
     }
 
