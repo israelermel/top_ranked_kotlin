@@ -49,9 +49,7 @@ class RepoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun create(parent: ViewGroup): RepoViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
 
-            binding = RepoViewItemBinding.inflate(layoutInflater, parent, false).apply {
-
-            }
+            binding = RepoViewItemBinding.inflate(layoutInflater, parent, false)
 
             return RepoViewHolder(binding.root)
         }
