@@ -1,12 +1,12 @@
-package br.com.israelermel.topranked.onboarding
+package br.com.israelermel.topranked.onboarding.scenes.onboarding
 
 import br.com.israelermel.feature_onboarding.R
-import br.com.israelermel.testing_core_uitest.BaseTestRobot
+import br.com.israelermel.topranked.onboarding.robotcore.BaseTestRobot
 
 fun onboarding(func: OnBoardingRobot.() -> Unit) = OnBoardingRobot()
     .apply(func)
 
-class OnBoardingRobot : BaseTestRobot() {
+open class OnBoardingRobot : BaseTestRobot() {
 
     fun clickButtonOnBoarding() {
         clickButton(R.id.btn_onboarding)

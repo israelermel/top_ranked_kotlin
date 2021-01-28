@@ -1,7 +1,9 @@
-package br.com.israelermel.testing_core_uitest
+package br.com.israelermel.topranked.onboarding.robotcore
 
 import com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn
 import com.schibsted.spain.barista.interaction.BaristaEditTextInteractions.writeTo
+import com.schibsted.spain.barista.interaction.BaristaListInteractions
+import com.schibsted.spain.barista.interaction.BaristaScrollInteractions
 import com.schibsted.spain.barista.interaction.BaristaSleepInteractions
 import java.util.concurrent.TimeUnit
 
@@ -28,6 +30,10 @@ open class BaseTestRobot {
 
     fun sleep(units: Long, timeunit: TimeUnit) {
         BaristaSleepInteractions.sleep(units, timeunit)
+    }
+
+   protected fun baseScrollTo(resId: Int, position: Int) {
+        BaristaListInteractions.scrollListToPosition(resId, position)
     }
 
 //    fun validCalledIntent(context: Context, activity: KClass<*>) {

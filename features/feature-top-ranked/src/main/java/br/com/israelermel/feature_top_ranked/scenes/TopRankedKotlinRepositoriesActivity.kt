@@ -55,18 +55,18 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
         configRetryButtons()
 
         val decoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        binding.list.addItemDecoration(decoration)
+        binding.repoTopRankedList.addItemDecoration(decoration)
     }
 
     private fun configRetryButtons() {
-        binding.list.adapter = adapter.withLoadStateHeaderAndFooter(
+        binding.repoTopRankedList.adapter = adapter.withLoadStateHeaderAndFooter(
             header = ReposLoadStateAdapter { adapter.retry() },
             footer = ReposLoadStateAdapter { adapter.retry() }
         )
 
         adapter.addLoadStateListener { loadState ->
 
-            binding.list.setIsVisible(loadState.source.refresh is LoadState.NotLoading)
+            binding.repoTopRankedList.setIsVisible(loadState.source.refresh is LoadState.NotLoading)
             binding.progressBar.setIsVisible(loadState.source.refresh is LoadState.Loading)
             binding.retryButton.setIsVisible(loadState.source.refresh is LoadState.Error)
 
