@@ -17,9 +17,9 @@ import br.com.israelermel.feature_top_ranked.databinding.TopRankedKotlinReposito
 import br.com.israelermel.feature_top_ranked.states.ReposResultState
 import br.com.israelermel.feature_top_ranked.states.TopRankedUserEvent
 import br.com.israelermel.feature_top_ranked.states.toStateResource
-import br.com.israelermel.library_arch.extensions.setIsVisible
+import br.com.israelermel.library_arch.extensions.VisibilityState
+import br.com.israelermel.library_arch.extensions.setVisibilityState
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
@@ -67,9 +67,23 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
 
         adapter.addLoadStateListener { loadState ->
 
-            binding.repoTopRankedList.setIsVisible(loadState.source.refresh is LoadState.NotLoading)
-            binding.progressBar.setIsVisible(loadState.source.refresh is LoadState.Loading)
-            binding.retryButton.setIsVisible(loadState.source.refresh is LoadState.Error)
+            if (loadState.source.refresh is LoadState.NotLoading) {
+                binding.repoTopRankedList.setVisibilityState(VisibilityState.VISIBLE)
+            } else {
+                binding.repoTopRankedList.setVisibilityState(VisibilityState.GONE)
+            }
+
+            if (loadState.source.refresh is LoadState.Loading) {
+                binding.progressBar.setVisibilityState(VisibilityState.VISIBLE)
+            } else {
+                binding.progressBar.setVisibilityState(VisibilityState.GONE)
+            }
+
+            if (loadState.source.refresh is LoadState.Error) {
+                binding.retryButton.setVisibilityState(VisibilityState.VISIBLE)
+            } else {
+                binding.retryButton.setVisibilityState(VisibilityState.GONE)
+            }
 
             val errorState = loadState.source.append as? LoadState.Error
                 ?: loadState.source.prepend as? LoadState.Error
@@ -79,7 +93,7 @@ class TopRankedKotlinRepositoriesActivity : AppCompatActivity() {
             errorState?.let {
                 Toast.makeText(
                     this,
-                    "\uD83D\uDE28 Falha: ${it.error}",
+                    "Falha: ${it.error}",
                     Toast.LENGTH_LONG
                 ).show()
             }

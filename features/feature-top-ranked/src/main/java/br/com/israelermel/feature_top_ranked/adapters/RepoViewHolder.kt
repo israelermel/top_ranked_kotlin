@@ -3,12 +3,22 @@ package br.com.israelermel.feature_top_ranked.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.israelermel.domain.models.repositories.ReposEntity
-import br.com.israelermel.feature_top_ranked.databinding.RepoViewItemBinding
+import br.com.israelermel.feature_top_ranked.R
+import br.com.israelermel.library_arch.extensions.VisibilityState
+import br.com.israelermel.library_arch.extensions.setVisibilityState
 import br.com.israelermel.library_arch.extensions.setRoundedImage
 
 class RepoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+    private val imgPhoto: ImageView = view.findViewById(R.id.repo_photo)
+    private val txtAuthorName: TextView = view.findViewById(R.id.txt_author)
+    private val txtRepoName: TextView = view.findViewById(R.id.txt_repo_name)
+    private val txtForksCount: TextView = view.findViewById(R.id.txt_forks_count)
+    private val txtStars: TextView = view.findViewById(R.id.txt_stars)
 
     fun bind(repo: ReposEntity?) {
         if (repo != null) {
@@ -17,38 +27,32 @@ class RepoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     private fun showRepoData(repo: ReposEntity) {
-
         repo.owner?.avatarUrl?.let {
-            binding.repoPhoto.setRoundedImage(it)
-        }
+            imgPhoto.setRoundedImage(it)
+        } ?: imgPhoto.setVisibilityState(VisibilityState.GONE)
 
         repo.owner?.login?.let {
-            binding.txtAuthor.text = it
+            txtAuthorName.text = it
         }
 
         repo.name?.let {
-            binding.txtRepoName.text = it
+            txtRepoName.text = it
         }
 
         repo.forksCount?.let {
-            binding.txtForksCount.text = it.toString()
+            txtForksCount.text = it.toString()
         }
 
         repo.stargazersCount?.let {
-            binding.txtStars.text = it.toString()
+            txtStars.text = it.toString()
         }
     }
 
     companion object {
-
-        private lateinit var binding : RepoViewItemBinding
-
         fun create(parent: ViewGroup): RepoViewHolder {
-            val layoutInflater = LayoutInflater.from(parent.context)
-
-            binding = RepoViewItemBinding.inflate(layoutInflater, parent, false)
-
-            return RepoViewHolder(binding.root)
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.repo_view_item, parent, false)
+            return RepoViewHolder(view)
         }
     }
 

@@ -2,10 +2,11 @@ package br.com.israelermel.library_arch.extensions
 
 import android.view.View
 
-fun View.setIsVisible(isVisible: Boolean) {
-    if(isVisible) {
-        this.visibility = View.VISIBLE
-    } else {
-        this.visibility = View.GONE
+
+
+fun View.setVisibilityState(state: VisibilityState) {
+    when(state) {
+        VisibilityState.GONE -> this.visibility = View.GONE
+        VisibilityState.VISIBLE -> this.visibility = View.VISIBLE
     }
 }
