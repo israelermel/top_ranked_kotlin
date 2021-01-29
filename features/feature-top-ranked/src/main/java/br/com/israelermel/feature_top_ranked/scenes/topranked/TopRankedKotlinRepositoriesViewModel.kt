@@ -1,15 +1,13 @@
-package br.com.israelermel.feature_top_ranked.scenes
+package br.com.israelermel.feature_top_ranked.scenes.topranked
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
 import br.com.israelermel.domain.exceptions.RepositoriesException
 import br.com.israelermel.domain.states.RequestResult
 import br.com.israelermel.domain.usecase.repositories.GetReposLanguageKotlinUseCase
-import br.com.israelermel.domain.usecase.repositories.GetReposLanguageKotlinUseCaseImpl
-import br.com.israelermel.feature_top_ranked.states.ReposResultState
+import br.com.israelermel.feature_top_ranked.states.topranked.ReposResultState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

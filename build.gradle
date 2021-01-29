@@ -28,13 +28,6 @@ subprojects {
                 buildToolsVersion '30.0.3'
                 compileSdkVersion 30
 
-                testOptions {
-                    unitTests {
-                        returnDefaultValues = true
-                        includeAndroidResources = true
-                        animationsDisabled = true
-                    }
-                }
                 defaultConfig {
                     minSdkVersion 21
                     targetSdkVersion 30
@@ -63,6 +56,7 @@ subprojects {
 
                     animationsDisabled = true
                 }
+
 
                 kotlinOptions {
                     jvmTarget = "1.8"

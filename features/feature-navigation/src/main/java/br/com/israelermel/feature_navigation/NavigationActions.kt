@@ -13,6 +13,6 @@ object NavigationActions {
 //    fun openDashboardIntent(userId: String) =
 //        Intent(context, "action.dashboard.open")
 //            .putExtra(EXTRA_USER, UserArgs(userId))
-
+//
 //    activity.startActivity(Actions.openDashboardIntent("userId"))
 }

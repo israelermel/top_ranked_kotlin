@@ -1,4 +1,4 @@
-package br.com.israelermel.feature_top_ranked.adapters
+package br.com.israelermel.feature_top_ranked.adapters.repos
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.israelermel.domain.models.repositories.ReposEntity
 import br.com.israelermel.feature_top_ranked.R
-import br.com.israelermel.library_arch.extensions.VisibilityState
+import br.com.israelermel.library_arch.viewstates.VisibilityState
 import br.com.israelermel.library_arch.extensions.setVisibilityState
 import br.com.israelermel.library_arch.extensions.setRoundedImage
 

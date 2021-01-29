@@ -1,4 +1,4 @@
-package br.com.israelermel.feature_top_ranked.adapters
+package br.com.israelermel.feature_top_ranked.adapters.repos
 
 import android.view.ViewGroup
 import androidx.paging.LoadState

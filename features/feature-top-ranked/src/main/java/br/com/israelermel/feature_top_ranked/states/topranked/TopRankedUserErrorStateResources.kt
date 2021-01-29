@@ -1,4 +1,4 @@
-package br.com.israelermel.feature_top_ranked.states
+package br.com.israelermel.feature_top_ranked.states.topranked
 
 import br.com.israelermel.domain.exceptions.RepositoriesException
 import br.com.israelermel.feature_top_ranked.R

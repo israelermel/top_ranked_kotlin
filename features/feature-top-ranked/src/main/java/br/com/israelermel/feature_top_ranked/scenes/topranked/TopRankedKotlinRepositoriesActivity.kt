@@ -1,4 +1,4 @@
-package br.com.israelermel.feature_top_ranked.scenes
+package br.com.israelermel.feature_top_ranked.scenes.topranked
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -11,14 +11,14 @@ import androidx.paging.PagingData
 import androidx.recyclerview.widget.DividerItemDecoration
 import br.com.israelermel.domain.models.repositories.ReposEntity
 import br.com.israelermel.domain.states.LoadingState
-import br.com.israelermel.feature_top_ranked.adapters.ReposAdapter
-import br.com.israelermel.feature_top_ranked.adapters.ReposLoadStateAdapter
+import br.com.israelermel.feature_top_ranked.adapters.repos.ReposAdapter
+import br.com.israelermel.feature_top_ranked.adapters.repos.ReposLoadStateAdapter
 import br.com.israelermel.feature_top_ranked.databinding.TopRankedKotlinRepositoriesBinding
-import br.com.israelermel.feature_top_ranked.states.ReposResultState
-import br.com.israelermel.feature_top_ranked.states.TopRankedUserEvent
-import br.com.israelermel.feature_top_ranked.states.toStateResource
-import br.com.israelermel.library_arch.extensions.VisibilityState
+import br.com.israelermel.feature_top_ranked.states.topranked.ReposResultState
+import br.com.israelermel.feature_top_ranked.states.topranked.TopRankedUserEvent
+import br.com.israelermel.feature_top_ranked.states.topranked.toStateResource
 import br.com.israelermel.library_arch.extensions.setVisibilityState
+import br.com.israelermel.library_arch.viewstates.VisibilityState
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter

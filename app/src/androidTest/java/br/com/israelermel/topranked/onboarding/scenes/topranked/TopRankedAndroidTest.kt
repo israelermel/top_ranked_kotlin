@@ -3,9 +3,8 @@ package br.com.israelermel.topranked.onboarding.scenes.topranked
 import android.content.Context
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.runner.AndroidJUnit4
 import androidx.test.uiautomator.UiDevice
-import br.com.israelermel.feature_top_ranked.scenes.TopRankedKotlinRepositoriesActivity
+import br.com.israelermel.feature_top_ranked.scenes.topranked.TopRankedKotlinRepositoriesActivity
 import br.com.israelermel.topranked.App
 import com.schibsted.spain.barista.rule.BaristaRule
 import com.schibsted.spain.barista.rule.cleardata.ClearDatabaseRule
@@ -14,7 +13,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin

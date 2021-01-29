@@ -39,6 +39,7 @@ ext {
         testImplementation globalTestDependencies.mockitoInlineItsWork
         testImplementation globalTestDependencies.livedataTesting
 
+        //UiTest
         androidTestImplementation globalTestDependencies.espresso
         androidTestImplementation globalTestDependencies.uiautomator
         androidTestImplementation("org.koin:koin-test:2.2.2") {
@@ -48,6 +49,9 @@ ext {
         androidTestImplementation('com.schibsted.spain:barista:3.7.0') {
             exclude group: 'org.jetbrains.kotlin'
         }
+
+        testImplementation globalTestDependencies.jUnitKtx
+
 
     }
 

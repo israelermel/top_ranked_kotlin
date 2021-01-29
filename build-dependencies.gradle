@@ -40,6 +40,7 @@ ext {
     LIFECYCLE_VIEWMODEL_KTX = "2.2.0"
     COROUTINES_PLAY_SERVICES = "1.2.1"
     COIL = "1.1.1"
+    JUNIT_KTX = "1.1.2"
 
     submodulesPlatform = [
             domain: ':domain',
@@ -109,7 +110,8 @@ ext {
             espresso            : "androidx.test.espresso:espresso-core:$EXPRESSO_CORE",
             uiautomator         : "androidx.test.uiautomator:uiautomator:$UI_AUTOMATOR",
             pagingCommonKtx     : "androidx.paging:paging-common-ktx:$PAGING_3",
-            coroutinesTest      : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES"
+            coroutinesTest      : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES",
+            jUnitKtx            : "androidx.test.ext:junit-ktx:$JUNIT_KTX"
     ]
 
     //==============================================================================================

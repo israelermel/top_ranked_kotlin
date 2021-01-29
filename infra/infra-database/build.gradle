@@ -15,8 +15,11 @@ dependencies {
     paging()
     room()
     networking()
+    testing()
 
     //Modules
     domainModule()
     dataModule()
+
+    testingCoreUnitTestModule()
 }

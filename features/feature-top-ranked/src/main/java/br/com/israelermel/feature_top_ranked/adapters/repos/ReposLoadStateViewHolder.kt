@@ -1,4 +1,4 @@
-package br.com.israelermel.feature_top_ranked.adapters
+package br.com.israelermel.feature_top_ranked.adapters.repos
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import br.com.israelermel.feature_top_ranked.R
 import br.com.israelermel.feature_top_ranked.databinding.LoadStateFooterViewItemBinding
-import br.com.israelermel.library_arch.extensions.VisibilityState
+import br.com.israelermel.library_arch.viewstates.VisibilityState
 import br.com.israelermel.library_arch.extensions.setVisibilityState
 
 class ReposLoadStateViewHolder(

@@ -2,28 +2,29 @@ package br.com.israelermel.feature_top_ranked.topranked
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import androidx.paging.PagingData
 import br.com.israelermel.domain.exceptions.RepositoriesException
-import br.com.israelermel.domain.states.RequestResult
-import br.com.israelermel.feature_top_ranked.scenes.TopRankedKotlinRepositoriesViewModel
-import br.com.israelermel.feature_top_ranked.states.ReposResultState
+import br.com.israelermel.feature_top_ranked.scenes.topranked.TopRankedKotlinRepositoriesViewModel
+import br.com.israelermel.feature_top_ranked.states.topranked.ReposResultState
 import br.com.israelermel.feature_top_ranked.topranked.providers.GetReposLanguageKotlinUseCaseSuccessFake
 import br.com.israelermel.testing_core_unitest.MainCoroutineRule
 import br.com.israelermel.testing_core_unitest.getOrAwaitValue
-import br.com.israelermel.testing_core_unitest.observeForTesting
-import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.*
+import org.junit.After
 import org.junit.Assert.assertTrue
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.rules.TestRule
+import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations.openMocks
 import org.mockito.Spy
+import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
+@RunWith(MockitoJUnitRunner::class)
 class TopRankedViewModelUnitTest {
 
     @get:Rule
@@ -38,19 +39,19 @@ class TopRankedViewModelUnitTest {
     @Mock
     private lateinit var viewStateObserver : Observer<ReposResultState>
 
-    lateinit var viewModel: TopRankedKotlinRepositoriesViewModel
+    lateinit var sut: TopRankedKotlinRepositoriesViewModel
 
     @Before
     fun setUp() {
         openMocks(this)
-        viewModel = TopRankedKotlinRepositoriesViewModel(useCase)
+        sut = TopRankedKotlinRepositoriesViewModel(useCase)
 
-        viewModel.resultResultState.observeForever(viewStateObserver)
+        sut.resultResultState.observeForever(viewStateObserver)
     }
 
     @After
     fun tearDown() {
-        viewModel.resultResultState.removeObserver(viewStateObserver)
+        sut.resultResultState.removeObserver(viewStateObserver)
     }
 
     @Test
@@ -58,10 +59,10 @@ class TopRankedViewModelUnitTest {
         // Given
 
         // When
-        viewModel.getGitHubRepositories()
+        sut.getGitHubRepositories()
 
         // Then
-        assertTrue(viewModel.resultResultState.getOrAwaitValue() is ReposResultState.Success)
+        assertTrue(sut.resultResultState.getOrAwaitValue() is ReposResultState.Success)
     }
 
 
@@ -71,7 +72,7 @@ class TopRankedViewModelUnitTest {
         doReturn(useCase.executeEmptyRepositoriesBodyException()).`when`(useCase).execute()
 
         // When
-        viewModel.getGitHubRepositories()
+        sut.getGitHubRepositories()
 
         // Then
         verify(viewStateObserver).onChanged(ReposResultState.Error(RepositoriesException.EmptyRepositoriesBodyException))
@@ -83,7 +84,7 @@ class TopRankedViewModelUnitTest {
         doReturn(useCase.executeUnknownRepositoriesException()).`when`(useCase).execute()
 
         // When
-        viewModel.getGitHubRepositories()
+        sut.getGitHubRepositories()
 
         // Then
         verify(viewStateObserver).onChanged(ReposResultState.Error(RepositoriesException.UnknownRepositoriesException))
@@ -95,7 +96,7 @@ class TopRankedViewModelUnitTest {
         doReturn(useCase.executeRequestRepositoriesException()).`when`(useCase).execute()
 
         // When
-        viewModel.getGitHubRepositories()
+        sut.getGitHubRepositories()
 
         // Then
         verify(viewStateObserver).onChanged(ReposResultState.Error(RepositoriesException.RequestRepositoriesException))

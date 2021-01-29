@@ -1,6 +1,6 @@
 package br.com.israelermel.topranked.di.modules.viewmodels
 
-import br.com.israelermel.feature_top_ranked.scenes.TopRankedKotlinRepositoriesViewModel
+import br.com.israelermel.feature_top_ranked.scenes.topranked.TopRankedKotlinRepositoriesViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
