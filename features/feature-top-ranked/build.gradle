@@ -1,20 +1,26 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+}
+
 apply from: "$rootProject.rootDir/groups.gradle"
 
+
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     stdKotlin()
     kotlinKtx()
     di()
     support()
     testing()
     coroutines()
+    paging()
+    image()
 
     //Modules
     domainModule()
-
+    testingCoreUnitTestModule()
+    librariesArchThemes()
+    librariesArchExtensions()
 }

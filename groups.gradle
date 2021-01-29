@@ -28,27 +28,31 @@ ext {
     }
 
     testing = Group {
+
+        //unitTest
         testImplementation globalTestDependencies.jUnit
         testImplementation globalTestDependencies.testExt
         testImplementation globalTestDependencies.mockitoCore
-//        androidTestImplementation globalTestDependencies.mockitoAndroid
-        testImplementation globalTestDependencies.mockitoInline
         testImplementation globalTestDependencies.robolectric
         testImplementation globalTestDependencies.koinTest
-//        androidTestImplementation globalTestDependencies.livedata_testing
+        testImplementation globalTestDependencies.mockitoInline
         testImplementation globalTestDependencies.mockitoInlineItsWork
+        testImplementation globalTestDependencies.livedataTesting
+
+        //UiTest
         androidTestImplementation globalTestDependencies.espresso
-        androidTestImplementation("org.koin:koin-test:2.0.1") {
+        androidTestImplementation globalTestDependencies.uiautomator
+        androidTestImplementation("org.koin:koin-test:2.2.2") {
             exclude group: 'org.mockito'
         }
 
-        androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
-
-        androidTestImplementation('com.schibsted.spain:barista:3.5.0') {
+        androidTestImplementation('com.schibsted.spain:barista:3.7.0') {
             exclude group: 'org.jetbrains.kotlin'
         }
 
-        androidTestImplementation "org.koin:koin-test:2.0.1"
+        testImplementation globalTestDependencies.jUnitKtx
+
+
     }
 
     di = Group {
@@ -62,11 +66,26 @@ ext {
     }
 
     coroutines = Group {
-        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
-        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7"
-        testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.7'
-        implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.2.1"
+        implementation globalDependencies.coroutinesCore
+        implementation globalDependencies.coroutinesAndroid
+        testImplementation globalTestDependencies.coroutinesTest
+        implementation globalDependencies.lifecycleViewmodelKtx
+        implementation globalDependencies.coroutinesPlayServices
+    }
+
+    paging = Group {
+        implementation globalDependencies.pagingRuntimeKtx
+        testImplementation globalTestDependencies.pagingCommonKtx
+    }
+
+    room = Group {
+        implementation globalDependencies.roomRuntime
+        kapt globalDependencies.roomCompiler
+        implementation globalDependencies.roomKtx
+    }
+
+    image = Group {
+        implementation globalDependencies.coil
     }
 
     // Submodules Platform
@@ -90,4 +109,24 @@ ext {
     featureOnboarding = Group {
         implementation project(path: submodulesFeatures.feature_onboarding)
     }
+
+    //Submodules Testing
+    testingCoreUnitTestModule = Group {
+        testImplementation project(path: submodulesTesting.testing_core_unittest)
+    }
+
+    //Submodules Libraries
+    librariesArchThemes = Group {
+        implementation project(path: submodulesLibraries.library_arch_themes)
+    }
+
+    librariesArchExtensions = Group {
+        implementation project(path: submodulesLibraries.library_arch_extensions)
+    }
+
+    //Submodules Infra
+    infraDatabase = Group {
+        implementation project(path: submodulesInfra.infra_database)
+    }
+
 }

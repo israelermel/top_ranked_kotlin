@@ -2,13 +2,13 @@
 apply from: 'build-dependencies.gradle'
 
 buildscript {
-    ext.kotlin_version = "1.3.72"
+    ext.kotlin_version = "1.4.21"
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.1.1"
+        classpath "com.android.tools.build:gradle:4.1.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -28,13 +28,6 @@ subprojects {
                 buildToolsVersion '30.0.3'
                 compileSdkVersion 30
 
-                testOptions {
-                    unitTests {
-                        returnDefaultValues = true
-                        includeAndroidResources = true
-                        animationsDisabled = true
-                    }
-                }
                 defaultConfig {
                     minSdkVersion 21
                     targetSdkVersion 30
@@ -48,12 +41,27 @@ subprojects {
 
                 buildFeatures {
                     dataBinding true
+                    viewBinding = true
                 }
 
                 lintOptions {
                     abortOnError false
                 }
 
+                testOptions {
+                    unitTests {
+                        returnDefaultValues = true
+                        includeAndroidResources = true
+                    }
+
+                    animationsDisabled = true
+                }
+
+
+                kotlinOptions {
+                    jvmTarget = "1.8"
+                    freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
+                }
             }
         }
     }

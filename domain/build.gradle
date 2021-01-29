@@ -1,13 +1,20 @@
 plugins {
-    id 'java-library'
-    id 'kotlin'
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
-}
+apply from: "$rootProject.rootDir/groups.gradle"
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    stdKotlin()
+    paging()
+    testing()
+//    coroutines()
+
+    implementation globalDependencies.roomKtx
+    implementation globalDependencies.retrofitConverter
+
+    testingCoreUnitTestModule()
 }

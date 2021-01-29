@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <data class="TopRankedBinding">
+    <data class="TopRankedKotlinRepositoriesBinding">
         <variable
             name="viewModel"
-            type="br.com.israelermel.feature_top_ranked.scenes.TopRankedListViewModel" />
+            type="br.com.israelermel.feature_top_ranked.scenes.topranked.TopRankedKotlinRepositoriesViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,7 +11,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".scenes.TopRankedListActivity">
+        tools:context=".scenes.topranked.TopRankedKotlinRepositoriesActivity">
 
         <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/login_progress_bar"
@@ -25,18 +25,39 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/repo_top_ranked_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingVertical="16dp"
+            android:scrollbars="vertical"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UnusedAttribute"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
         <Button
-            android:id="@+id/btn_search_top_ranked_repositories"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/retry_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Buscar"
+            android:text="@string/msg_try_again"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="18sp"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            />
-
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
