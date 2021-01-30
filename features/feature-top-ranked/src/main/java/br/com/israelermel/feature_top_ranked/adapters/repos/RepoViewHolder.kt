@@ -1,24 +1,18 @@
 package br.com.israelermel.feature_top_ranked.adapters.repos
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.israelermel.domain.models.repositories.ReposEntity
 import br.com.israelermel.feature_top_ranked.R
-import br.com.israelermel.library_arch.viewstates.VisibilityState
-import br.com.israelermel.library_arch.extensions.setVisibilityState
+import br.com.israelermel.feature_top_ranked.databinding.RepoViewItemBinding
 import br.com.israelermel.library_arch.extensions.setRoundedImage
+import br.com.israelermel.library_arch.extensions.setVisibilityState
+import br.com.israelermel.library_arch.viewstates.VisibilityState
 
-class RepoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-    private val imgPhoto: ImageView = view.findViewById(R.id.repo_photo)
-    private val txtAuthorName: TextView = view.findViewById(R.id.txt_author)
-    private val txtRepoName: TextView = view.findViewById(R.id.txt_repo_name)
-    private val txtForksCount: TextView = view.findViewById(R.id.txt_forks_count)
-    private val txtStars: TextView = view.findViewById(R.id.txt_stars)
+class RepoViewHolder(view: RepoViewItemBinding) : RecyclerView.ViewHolder(view.root) {
 
     fun bind(repo: ReposEntity?) {
         if (repo != null) {
@@ -49,10 +43,26 @@ class RepoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     companion object {
+
+        lateinit var imgPhoto: ImageView
+        lateinit var txtAuthorName: TextView
+        lateinit var txtRepoName: TextView
+        lateinit var txtForksCount: TextView
+        lateinit var txtStars: TextView
+
         fun create(parent: ViewGroup): RepoViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.repo_view_item, parent, false)
-            return RepoViewHolder(view)
+
+            val binding = RepoViewItemBinding.bind(view)
+
+            imgPhoto = binding.repoPhoto
+            txtAuthorName = binding.txtAuthor
+            txtRepoName = binding.txtRepoName
+            txtForksCount = binding.txtForksCount
+            txtStars = binding.txtStars
+
+            return RepoViewHolder(binding)
         }
     }
 

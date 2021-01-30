@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import br.com.israelermel.domain.exceptions.RepositoriesException
 import br.com.israelermel.domain.states.RequestResult
 import br.com.israelermel.domain.usecase.repositories.GetReposLanguageKotlinUseCase
@@ -26,7 +27,7 @@ class TopRankedKotlinRepositoriesViewModel(
 
             when (val repositories = getReposLanguageKotlinUseCaseImpl.execute()) {
                 is RequestResult.Success -> {
-                    repositories.result.collectLatest {
+                    repositories.result.cachedIn(viewModelScope).collectLatest {
                         _resultState.postValue(ReposResultState.Success(it))
                     }
                 }
