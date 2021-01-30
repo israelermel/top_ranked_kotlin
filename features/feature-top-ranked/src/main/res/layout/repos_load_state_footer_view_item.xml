@@ -40,7 +40,7 @@
             android:id="@+id/retry_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="tentar novamente"
+            android:text="@string/msg_try_again"
             android:padding="@dimen/standard_margin"
             style="@style/Widget.AppCompat.Button.Colored"
             app:layout_constraintBottom_toBottomOf="parent"

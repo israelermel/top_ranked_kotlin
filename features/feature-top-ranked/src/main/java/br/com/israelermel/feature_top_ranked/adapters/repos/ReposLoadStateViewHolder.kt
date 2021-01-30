@@ -6,8 +6,8 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import br.com.israelermel.feature_top_ranked.R
 import br.com.israelermel.feature_top_ranked.databinding.LoadStateFooterViewItemBinding
-import br.com.israelermel.library_arch.viewstates.VisibilityState
 import br.com.israelermel.library_arch.extensions.setVisibilityState
+import br.com.israelermel.library_arch.viewstates.VisibilityState
 
 class ReposLoadStateViewHolder(
     private val binding: LoadStateFooterViewItemBinding,
@@ -21,16 +21,22 @@ class ReposLoadStateViewHolder(
     fun bind(loadState: LoadState) {
         if (loadState is LoadState.Error) {
             binding.errorMsg.text = loadState.error.localizedMessage
-        }
-
-        if (loadState is LoadState.Loading) {
-            binding.progressBar.setVisibilityState(VisibilityState.VISIBLE)
-        } else {
             binding.progressBar.setVisibilityState(VisibilityState.GONE)
-            binding.errorMsg.setVisibilityState(VisibilityState.VISIBLE)
             binding.retryButton.setVisibilityState(VisibilityState.VISIBLE)
+        } else {
+            binding.retryButton.setVisibilityState(VisibilityState.GONE)
+            binding.progressBar.setVisibilityState(visibleStateWhenLoading(loadState))
+            binding.errorMsg.setVisibilityState(visibleStateWhenLoading(loadState))
         }
+    }
 
+
+    private fun visibleStateWhenLoading(loadingState: LoadState): VisibilityState {
+        return if (loadingState is LoadState.Loading) {
+            VisibilityState.VISIBLE
+        } else {
+            VisibilityState.GONE
+        }
     }
 
     companion object {
@@ -41,5 +47,7 @@ class ReposLoadStateViewHolder(
             return ReposLoadStateViewHolder(binding, retry)
         }
     }
+
+
 
 }

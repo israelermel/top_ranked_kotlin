@@ -17,7 +17,7 @@ class RemoteReposImpl(
 ) : IReposRepository {
 
     @OptIn(ExperimentalPagingApi::class)
-    override suspend fun getReposLanguageKotlinResultStream(): Flow<PagingData<ReposEntity>> {
+    override suspend fun getReposLanguageKotlin(): Flow<PagingData<ReposEntity>> {
 
         val queryFilterByKotlin = "kotlin"
         val pagingSourceFactory = { database.reposDao().reposByLanguage("%${queryFilterByKotlin}%") }
@@ -35,6 +35,5 @@ class RemoteReposImpl(
             pagingSourceFactory = pagingSourceFactory
         ).flow
     }
-
 
 }
